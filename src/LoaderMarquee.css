@@ -1,0 +1,579 @@
+/* ==============================================================
+   LoaderMarquee.css
+   Colour scheme:
+     #EA9DFF  – loader bg, marquee / nav bar bg
+     #080509  – company name on loader, page body text accent, info footer
+     #191A1F  – main page background
+============================================================== */
+
+.lm {
+  --panel: #EA9DFF;          /* loader background */
+  --loader-name: #080509;    /* company name on the loader */
+  --lt: #080509;             /* text colour while sitting on the pink loader */
+  --paper: #191A1F;          /* main page background */
+  --fg: rgba(242, 242, 240, 0.92); /* page foreground */
+  --band-bg: #EA9DFF;        /* marquee / nav bar */
+  --band-fg: #080509;        /* text inside the marquee / nav */
+  --band-h: clamp(2.5rem, 7vh, 4rem);
+  --nav-h: 2.2rem;
+  --pad: clamp(1rem, 3vw, 2.5rem);
+  --ease: cubic-bezier(.76, 0, .24, 1);
+  --accent: #EA9DFF;
+
+  position: relative;
+  min-height: 100svh;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--fg);
+  font-family: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+}
+
+.lm *,
+.lm *::before,
+.lm *::after { box-sizing: border-box; }
+
+/* Phase container – no box of its own */
+.lm-seq { display: contents; }
+
+/* ── page underneath ── */
+.lm-hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--band-h) + var(--pad)) var(--pad) var(--pad);
+}
+.lm-title {
+  margin: 0;
+  max-width: 10ch;
+  font-weight: 700;
+  font-stretch: 78%;
+  font-size: min(clamp(3.4rem, 12.5vw, 13rem), 13vh);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.lm-replay {
+  position: fixed;
+  bottom: var(--pad);
+  right: var(--pad);
+  z-index: 10;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--fg);
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 0.55em 1.1em;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.lm-replay:hover:not(:disabled) {
+  background: var(--accent);
+  color: #080509;
+  border-color: var(--accent);
+}
+.lm-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.lm-replay:disabled { opacity: 0.35; cursor: default; }
+
+/* ── loader panels ── */
+.lm-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  overflow: hidden;
+}
+.is-done .lm-loader { visibility: hidden; }
+
+.lm-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.1%;
+  background: var(--panel);    /* #EA9DFF */
+  transition: transform 1s var(--ease);
+}
+.lm-panel--top { top: 0; }
+.lm-panel--bottom { bottom: 0; }
+.is-open .lm-panel--top { transform: translateY(-100%); }
+.is-open .lm-panel--bottom { transform: translateY(100%); }
+
+/* ── Company name centred on the loader ── */
+.lm-loader-brand {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2.8rem, 8vw, 9rem);
+  font-weight: 800;
+  font-stretch: 78%;
+  letter-spacing: -0.045em;
+  color: var(--loader-name);   /* #080509 */
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+  /* Scale down if name is very long */
+  padding: 0 var(--pad);
+  transform-origin: center;
+  transition: opacity 0.4s ease;
+}
+/* Once the band phase starts, fade the name away so it doesn't sit behind the growing band */
+.is-band .lm-loader-brand { opacity: 0; transition: opacity 0.3s ease; }
+
+/* ── Split progress bar: two segments flanking the company name ── */
+/*
+   Strategy: the bar is absolutely centred. We measure a "logo gap" from the
+   centre in both directions and transform each half from its outer edge inward.
+   The gap is controlled by the CSS custom property --logo-gap (default 45% of
+   the half-width, so the bar covers 55% on each side before touching the name).
+*/
+.lm-bar-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Each bar half is half the viewport wide, anchored outward from the centre */
+.lm-bar {
+  height: 2px;
+  background: var(--loader-name);   /* dark on pink, always visible */
+  flex: none;
+  transform-origin: left center;
+  transition: opacity 0.3s ease;
+}
+/* Left half: fills from left edge → stops at gap. Transform origin is left edge. */
+.lm-bar--left {
+  width: calc(50% - clamp(6rem, 18vw, 18rem));
+  transform-origin: left center;
+  /* progress applied via inline style: transform: scaleX(progress/100) */
+}
+/* Right half: fills from right edge → stops at gap. Mirror of left. */
+.lm-bar--right {
+  width: calc(50% - clamp(6rem, 18vw, 18rem));
+  transform-origin: right center;
+}
+
+/* Once the band expands, hide the bars */
+.is-band .lm-bar { opacity: 0; }
+
+/* ── The band: a thin line first, then the full marquee ── */
+.lm-band {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  z-index: 30;
+  overflow: hidden;
+  background: var(--band-bg);   /* #EA9DFF */
+  color: var(--band-fg);        /* #080509 */
+  font-size: calc(var(--band-h) * 0.5);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  transition:
+    height 0.9s var(--ease),
+    top 1s var(--ease),
+    font-size 0.6s ease,
+    background-color 0.6s ease,
+    color 0.6s ease;
+}
+.is-band .lm-band { height: var(--band-h); }
+
+.lm-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+  will-change: transform;
+}
+.is-band .lm-track { opacity: 1; }
+.lm-group { display: flex; align-items: center; }
+.lm-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  padding-right: 0.9em;
+  white-space: nowrap;
+}
+.lm-dot {
+  width: 0.38em;
+  height: 0.38em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* ── Nav state: band moves to top, shrinks to nav height ── */
+.is-nav .lm-band {
+  top: calc(var(--nav-h) / 2);
+  height: var(--nav-h);
+  font-size: 1.05rem;  /* slightly larger than the band, smaller nav height */
+}
+.is-nav .lm-track {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Nav bar hidden inside the band until is-nav */
+.lm-nav {
+  --ui-navbar-pad-y: 0;
+  --ui-navbar-pad-left: clamp(.75rem, 1.4vw, 1.25rem);
+  --ui-navbar-pad-right: var(--pad);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+.is-nav .lm-nav {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease 0.6s, visibility 0s linear 0.6s;
+}
+
+.lm-brand {
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+.lm-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.lm-plus {
+  display: inline-block;
+  font-weight: 400;
+  transition: transform 0.4s var(--ease);
+}
+.lm-info:hover .lm-plus { transform: rotate(90deg); }
+.lm-brand:focus-visible,
+.lm-info:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+/* Group wrapper for the two right-hand buttons */
+.lm-nav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* ── Info drop-down panel ── */
+/* semi-transparent backdrop */
+.lm-panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 88;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lm-panel-overlay.is-open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* the panel itself */
+.lm-info-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 89;
+  background: rgba(234, 157, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  color: #080509;
+  transform: translateY(-110%);
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+  border-bottom: 1px solid rgba(8, 5, 9, 0.12);
+}
+.lm-info-panel.is-open { transform: translateY(0); }
+
+.lm-info-panel__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) clamp(1rem, 3vw, 2.5rem) 2.5rem;
+  display: grid;
+  gap: 1.5rem;
+}
+.lm-info-panel__tagline {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  font-weight: 700;
+  font-stretch: 85%;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  max-width: 22ch;
+}
+.lm-info-panel__body {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  line-height: 1.65;
+  max-width: 56ch;
+  opacity: 0.8;
+}
+.lm-info-panel__cols {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.lm-info-panel__heading {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.lm-info-panel__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+.lm-info-panel__links a {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+.lm-info-panel__links a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.lm-info-panel__mail {
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.lm-info-panel__mail:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.lm-info-panel__close {
+  align-self: start;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: inherit;
+  background: rgba(8, 5, 9, 0.08);
+  border: 1px solid rgba(8, 5, 9, 0.15);
+  border-radius: 999px;
+  padding: 0.45em 1em;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: fit-content;
+}
+.lm-info-panel__close:hover { background: rgba(8, 5, 9, 0.15); }
+.lm-info-panel__close:focus-visible { outline: 2px solid #080509; outline-offset: 3px; }
+
+/* ── Cursor hint ── */
+.lm-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  pointer-events: none;
+  padding: 0.5em 0.9em;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #080509;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lm-cursor.is-on { opacity: 1; }
+
+@media (hover: none) {
+  .lm-cursor {
+    left: 50%;
+    top: calc(50% + var(--band-h) / 2 + 1rem);
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+}
+.is-nav .lm-cursor { opacity: 0; }
+
+/* ── Film grain ── */
+.lm-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 25;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: lm-grain 1s steps(8) infinite;
+}
+@keyframes lm-grain {
+  0%   { transform: translate(0, 0); }
+  12%  { transform: translate(-5%, -8%); }
+  25%  { transform: translate(-12%, 4%); }
+  37%  { transform: translate(6%, -14%); }
+  50%  { transform: translate(-8%, 10%); }
+  62%  { transform: translate(12%, 2%); }
+  75%  { transform: translate(-4%, 14%); }
+  87%  { transform: translate(9%, -6%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ── Page state ── */
+.lm-hero { transition: visibility 0s; }
+.is-page .lm-hero {
+  position: absolute;
+  inset: 0 0 auto 0;
+  opacity: 0;
+  transform: translateY(-4vh);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.7s var(--ease), visibility 0s linear 0.7s;
+}
+.is-page .lm-replay { display: none; }
+.lm-page { position: relative; }
+.lm-page { animation: lm-page-in 0.6s ease both; }
+@keyframes lm-page-in { from { opacity: 0; } }
+
+/* ── Info drawer ── */
+.lm-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(8, 5, 9, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  backdrop-filter: blur(2px);
+}
+.lm-drawer-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lm-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 95;
+  width: min(22rem, 90vw);
+  background: #EA9DFF;
+  color: #080509;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.lm-drawer.is-open { transform: translateX(0); }
+
+/* drawer header */
+.lm-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(8, 5, 9, 0.15);
+  min-height: var(--nav-h);
+  flex-shrink: 0;
+}
+.lm-drawer-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lm-drawer-close {
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  transition: background 0.15s;
+}
+.lm-drawer-close:hover { background: rgba(8, 5, 9, 0.1); }
+.lm-drawer-close:focus-visible { outline: 2px solid #080509; outline-offset: 2px; }
+
+/* drawer list */
+.lm-drawer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+.lm-drawer-item {
+  border-bottom: 1px solid rgba(8, 5, 9, 0.12);
+}
+.lm-drawer-link {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1.1rem 1.25rem;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #080509;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  letter-spacing: -0.02em;
+}
+.lm-drawer-link:hover { background: rgba(8, 5, 9, 0.08); }
+.lm-drawer-link:focus-visible { outline: 2px solid #080509; outline-offset: -2px; }
+.lm-drawer-link.is-active { background: rgba(8, 5, 9, 0.12); }
+
+.lm-drawer-num {
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.55;
+}
+.lm-drawer-title { flex: 1; }
+.lm-drawer-arrow {
+  font-size: 1.1rem;
+  opacity: 0.55;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.lm-drawer-link:hover .lm-drawer-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .lm *,
+  .lm *::before,
+  .lm *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  .lm-grain,
+  .lm-page { animation: none; }
+}

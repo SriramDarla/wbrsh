@@ -1,0 +1,2475 @@
+{
+  "total_streams": 149860,
+  "total_hours_played": 5341.5,
+  "overall_skip_rate": 0.0525,
+  "overall_shuffle_rate": 0.7446,
+  "platforms": {
+    "web player": 225,
+    "windows": 1691,
+    "android": 139821,
+    "iOS": 3049,
+    "cast to device": 3898,
+    "mac": 1176
+  },
+  "years": {
+    "2013": {
+      "streams": 185,
+      "hours_played": 7.8,
+      "distinct_artists": 63,
+      "distinct_tracks": 149,
+      "top_artists": [
+        {
+          "name": "John Mayer",
+          "plays": 34
+        },
+        {
+          "name": "Lana Del Rey",
+          "plays": 13
+        },
+        {
+          "name": "The Kooks",
+          "plays": 13
+        },
+        {
+          "name": "Coldplay",
+          "plays": 9
+        },
+        {
+          "name": "Passion Pit",
+          "plays": 8
+        },
+        {
+          "name": "U2",
+          "plays": 7
+        },
+        {
+          "name": "The Killers",
+          "plays": 6
+        },
+        {
+          "name": "MGMT",
+          "plays": 5
+        },
+        {
+          "name": "Florence + The Machine",
+          "plays": 5
+        },
+        {
+          "name": "Justin Timberlake",
+          "plays": 5
+        },
+        {
+          "name": "Emeli Sand\u00e9",
+          "plays": 4
+        },
+        {
+          "name": "Imagine Dragons",
+          "plays": 3
+        },
+        {
+          "name": "The Script",
+          "plays": 3
+        },
+        {
+          "name": "The xx",
+          "plays": 3
+        },
+        {
+          "name": "Gotye",
+          "plays": 3
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Paper Doll \u2014 John Mayer",
+          "plays": 6
+        },
+        {
+          "name": "Mirrors \u2014 Justin Timberlake",
+          "plays": 5
+        },
+        {
+          "name": "Born To Die \u2014 Lana Del Rey",
+          "plays": 4
+        },
+        {
+          "name": "Young And Beautiful \u2014 Lana Del Rey",
+          "plays": 4
+        },
+        {
+          "name": "In Your Atmosphere - Live at the Nokia Theatre, Los Angeles, CA - December 2007 \u2014 John Mayer",
+          "plays": 3
+        },
+        {
+          "name": "I Still Haven't Found What I'm Looking For \u2014 U2",
+          "plays": 3
+        },
+        {
+          "name": "Next To Me \u2014 Emeli Sand\u00e9",
+          "plays": 3
+        },
+        {
+          "name": "Impossible \u2014 James Arthur",
+          "plays": 2
+        },
+        {
+          "name": "Do I Wanna Know? \u2014 Arctic Monkeys",
+          "plays": 2
+        },
+        {
+          "name": "Take a Walk \u2014 Passion Pit",
+          "plays": 2
+        },
+        {
+          "name": "Free Fallin' - Live at the Nokia Theatre, Los Angeles, CA - December 2007 \u2014 John Mayer",
+          "plays": 2
+        },
+        {
+          "name": "Heartbreak Warfare \u2014 John Mayer",
+          "plays": 2
+        },
+        {
+          "name": "Half of My Heart \u2014 John Mayer",
+          "plays": 2
+        },
+        {
+          "name": "Clocks \u2014 Coldplay",
+          "plays": 2
+        },
+        {
+          "name": "Ooh La \u2014 The Kooks",
+          "plays": 2
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Inside In / Inside Out",
+          "plays": 12
+        },
+        {
+          "name": "Born To Die - The Paradise Edition",
+          "plays": 8
+        },
+        {
+          "name": "Gossamer",
+          "plays": 7
+        },
+        {
+          "name": "Paper Doll",
+          "plays": 6
+        },
+        {
+          "name": "Where the Light Is: John Mayer Live In Los Angeles",
+          "plays": 6
+        },
+        {
+          "name": "Battle Studies",
+          "plays": 6
+        },
+        {
+          "name": "Oracular Spectacular",
+          "plays": 5
+        },
+        {
+          "name": "The 20/20 Experience (Deluxe Version)",
+          "plays": 5
+        },
+        {
+          "name": "Our Version Of Events",
+          "plays": 4
+        },
+        {
+          "name": "Young And Beautiful",
+          "plays": 4
+        }
+      ],
+      "platforms": {
+        "web player": 95,
+        "windows": 90
+      },
+      "hourly_distribution": [
+        0,
+        1,
+        26,
+        26,
+        14,
+        5,
+        25,
+        8,
+        15,
+        26,
+        30,
+        3,
+        0,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "skip_rate": 0.1351,
+      "shuffle_rate": 0.027
+    },
+    "2014": {
+      "streams": 23,
+      "hours_played": 1.0,
+      "distinct_artists": 21,
+      "distinct_tracks": 23,
+      "top_artists": [
+        {
+          "name": "Blur",
+          "plays": 2
+        },
+        {
+          "name": "The Neighbourhood",
+          "plays": 2
+        },
+        {
+          "name": "Parachute Youth",
+          "plays": 1
+        },
+        {
+          "name": "Karmon",
+          "plays": 1
+        },
+        {
+          "name": "Stevie Ray Vaughan",
+          "plays": 1
+        },
+        {
+          "name": "Freddie King",
+          "plays": 1
+        },
+        {
+          "name": "Ted Nugent",
+          "plays": 1
+        },
+        {
+          "name": "James Gang",
+          "plays": 1
+        },
+        {
+          "name": "Arctic Monkeys",
+          "plays": 1
+        },
+        {
+          "name": "The Shins",
+          "plays": 1
+        },
+        {
+          "name": "The Strokes",
+          "plays": 1
+        },
+        {
+          "name": "Mystery Jets",
+          "plays": 1
+        },
+        {
+          "name": "Bloc Party",
+          "plays": 1
+        },
+        {
+          "name": "Funeral Suits",
+          "plays": 1
+        },
+        {
+          "name": "Blondfire",
+          "plays": 1
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Awake Now \u2014 Parachute Youth",
+          "plays": 1
+        },
+        {
+          "name": "Feel It \u2014 Karmon",
+          "plays": 1
+        },
+        {
+          "name": "Little Wing \u2014 Stevie Ray Vaughan",
+          "plays": 1
+        },
+        {
+          "name": "Walking By Myself - Remastered \u2014 Freddie King",
+          "plays": 1
+        },
+        {
+          "name": "Wang Dang Sweet Poontang \u2014 Ted Nugent",
+          "plays": 1
+        },
+        {
+          "name": "Midnight Man \u2014 James Gang",
+          "plays": 1
+        },
+        {
+          "name": "When The Sun Goes Down \u2014 Arctic Monkeys",
+          "plays": 1
+        },
+        {
+          "name": "Parklife \u2014 Blur",
+          "plays": 1
+        },
+        {
+          "name": "Sleeping Lessons \u2014 The Shins",
+          "plays": 1
+        },
+        {
+          "name": "I Can't Win \u2014 The Strokes",
+          "plays": 1
+        },
+        {
+          "name": "Half in Love with Elizabeth \u2014 Mystery Jets",
+          "plays": 1
+        },
+        {
+          "name": "End of a Century \u2014 Blur",
+          "plays": 1
+        },
+        {
+          "name": "She's Hearing Voices \u2014 Bloc Party",
+          "plays": 1
+        },
+        {
+          "name": "Staying Up \u2014 The Neighbourhood",
+          "plays": 1
+        },
+        {
+          "name": "Wires \u2014 The Neighbourhood",
+          "plays": 1
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Blur: The Best Of",
+          "plays": 2
+        },
+        {
+          "name": "Can\u2019t Get Better Than This",
+          "plays": 1
+        },
+        {
+          "name": "Feel It EP",
+          "plays": 1
+        },
+        {
+          "name": "The Best Of",
+          "plays": 1
+        },
+        {
+          "name": "The Best Of Freddie King: The Shelter Years",
+          "plays": 1
+        },
+        {
+          "name": "The Essential Ted Nugent",
+          "plays": 1
+        },
+        {
+          "name": "20th Century Masters: The Millennium Collection: Best Of Joe Walsh",
+          "plays": 1
+        },
+        {
+          "name": "When The Sun Goes Down",
+          "plays": 1
+        },
+        {
+          "name": "Wincing The Night Away",
+          "plays": 1
+        },
+        {
+          "name": "Room On Fire",
+          "plays": 1
+        }
+      ],
+      "platforms": {
+        "windows": 23
+      },
+      "hourly_distribution": [
+        10,
+        7,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "skip_rate": 0.3043,
+      "shuffle_rate": 0.0
+    },
+    "2015": {
+      "streams": 2809,
+      "hours_played": 59.2,
+      "distinct_artists": 610,
+      "distinct_tracks": 1377,
+      "top_artists": [
+        {
+          "name": "The Script",
+          "plays": 123
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 100
+        },
+        {
+          "name": "David Bisbal",
+          "plays": 94
+        },
+        {
+          "name": "Justin Bieber",
+          "plays": 78
+        },
+        {
+          "name": "Frank Sinatra",
+          "plays": 57
+        },
+        {
+          "name": "We The Kings",
+          "plays": 57
+        },
+        {
+          "name": "AWOLNATION",
+          "plays": 48
+        },
+        {
+          "name": "Jimi Hendrix",
+          "plays": 42
+        },
+        {
+          "name": "Hozier",
+          "plays": 39
+        },
+        {
+          "name": "Fall Out Boy",
+          "plays": 39
+        },
+        {
+          "name": "AC/DC",
+          "plays": 38
+        },
+        {
+          "name": "One Direction",
+          "plays": 38
+        },
+        {
+          "name": "B.B. King",
+          "plays": 36
+        },
+        {
+          "name": "Dvicio",
+          "plays": 36
+        },
+        {
+          "name": "Gerardo Ortiz",
+          "plays": 35
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Para\u00edso \u2014 Dvicio",
+          "plays": 33
+        },
+        {
+          "name": "What Do You Mean? \u2014 Justin Bieber",
+          "plays": 32
+        },
+        {
+          "name": "Diez Mil Maneras \u2014 David Bisbal",
+          "plays": 28
+        },
+        {
+          "name": "Superheroes \u2014 The Script",
+          "plays": 24
+        },
+        {
+          "name": "Old Thing Back (feat. Ja Rule and Ralph Tresvant) \u2014 Matoma",
+          "plays": 22
+        },
+        {
+          "name": "Drag Me Down \u2014 One Direction",
+          "plays": 20
+        },
+        {
+          "name": "Photograph \u2014 Ed Sheeran",
+          "plays": 20
+        },
+        {
+          "name": "Switzerland \u2014 The Last Bison",
+          "plays": 20
+        },
+        {
+          "name": "Sun Is Shining \u2014 Axwell /\\ Ingrosso",
+          "plays": 18
+        },
+        {
+          "name": "La Buena y la Mala \u2014 Banda Tierra Sagrada",
+          "plays": 18
+        },
+        {
+          "name": "Queen of Hearts \u2014 We The Kings",
+          "plays": 17
+        },
+        {
+          "name": "Stole the Show \u2014 Kygo",
+          "plays": 16
+        },
+        {
+          "name": "Check Yes Juliet \u2014 We The Kings",
+          "plays": 16
+        },
+        {
+          "name": "Creo en Ti \u2014 Reik",
+          "plays": 15
+        },
+        {
+          "name": "Eres una Ni\u00f1a \u2014 Gerardo Ortiz",
+          "plays": 15
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "T\u00fa Y Yo",
+          "plays": 78
+        },
+        {
+          "name": "No Sound Without Silence",
+          "plays": 48
+        },
+        {
+          "name": "Ultimate Sinatra",
+          "plays": 44
+        },
+        {
+          "name": "Somewhere Somehow",
+          "plays": 41
+        },
+        {
+          "name": "Hozier",
+          "plays": 39
+        },
+        {
+          "name": "Save Rock And Roll",
+          "plays": 39
+        },
+        {
+          "name": "Megalithic Symphony Deluxe",
+          "plays": 38
+        },
+        {
+          "name": "Sticky Fingers",
+          "plays": 34
+        },
+        {
+          "name": "Para\u00edso",
+          "plays": 33
+        },
+        {
+          "name": "What Do You Mean?",
+          "plays": 32
+        }
+      ],
+      "platforms": {
+        "android": 2467,
+        "iOS": 135,
+        "windows": 207
+      },
+      "hourly_distribution": [
+        39,
+        108,
+        256,
+        156,
+        219,
+        319,
+        214,
+        343,
+        243,
+        131,
+        109,
+        114,
+        152,
+        60,
+        28,
+        6,
+        5,
+        4,
+        12,
+        62,
+        43,
+        41,
+        100,
+        45
+      ],
+      "skip_rate": 0.7875,
+      "shuffle_rate": 0.6533
+    },
+    "2016": {
+      "streams": 6412,
+      "hours_played": 197.5,
+      "distinct_artists": 458,
+      "distinct_tracks": 2587,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 715
+        },
+        {
+          "name": "Led Zeppelin",
+          "plays": 216
+        },
+        {
+          "name": "Elvis Presley",
+          "plays": 206
+        },
+        {
+          "name": "Johnny Cash",
+          "plays": 189
+        },
+        {
+          "name": "Vampire Weekend",
+          "plays": 142
+        },
+        {
+          "name": "Frank Sinatra",
+          "plays": 141
+        },
+        {
+          "name": "John Lennon",
+          "plays": 129
+        },
+        {
+          "name": "AWOLNATION",
+          "plays": 129
+        },
+        {
+          "name": "Lou Reed",
+          "plays": 123
+        },
+        {
+          "name": "Dean Martin",
+          "plays": 114
+        },
+        {
+          "name": "John Mayall & The Bluesbreakers",
+          "plays": 111
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 110
+        },
+        {
+          "name": "John Mayer",
+          "plays": 105
+        },
+        {
+          "name": "The Mud Howlers",
+          "plays": 103
+        },
+        {
+          "name": "Bobby Darin",
+          "plays": 98
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Teenagers \u2014 My Chemical Romance",
+          "plays": 29
+        },
+        {
+          "name": "The River \u2014 The Mud Howlers",
+          "plays": 28
+        },
+        {
+          "name": "Not Today \u2014 Imagine Dragons",
+          "plays": 24
+        },
+        {
+          "name": "South Bound Saurez - Remaster \u2014 Led Zeppelin",
+          "plays": 22
+        },
+        {
+          "name": "I've Got You Under My Skin \u2014 Frank Sinatra",
+          "plays": 20
+        },
+        {
+          "name": "Hallelujah \u2014 Jeff Buckley",
+          "plays": 18
+        },
+        {
+          "name": "Start Me Up - Remastered 2009 \u2014 The Rolling Stones",
+          "plays": 17
+        },
+        {
+          "name": "Crazy Train \u2014 Ozzy Osbourne",
+          "plays": 17
+        },
+        {
+          "name": "Craving - Acoustic Version \u2014 James Bay",
+          "plays": 17
+        },
+        {
+          "name": "My Way \u2014 Frank Sinatra",
+          "plays": 17
+        },
+        {
+          "name": "25 Minutes to Go - Live at Folsom State Prison, Folsom, CA (1st Show) - January 1968 \u2014 Johnny Cash",
+          "plays": 17
+        },
+        {
+          "name": "Thunderstruck \u2014 AC/DC",
+          "plays": 16
+        },
+        {
+          "name": "Blitzkrieg Bop - 2001 Remastered Version \u2014 Ramones",
+          "plays": 16
+        },
+        {
+          "name": "Can't You Hear Me Knocking - 2009 Mix \u2014 The Rolling Stones",
+          "plays": 16
+        },
+        {
+          "name": "Brown Sugar - Remastered 2009 \u2014 The Rolling Stones",
+          "plays": 16
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Elvis At Sun",
+          "plays": 178
+        },
+        {
+          "name": "At Folsom Prison",
+          "plays": 153
+        },
+        {
+          "name": "New York",
+          "plays": 112
+        },
+        {
+          "name": "Ultimate Sinatra",
+          "plays": 107
+        },
+        {
+          "name": "The Beatles",
+          "plays": 99
+        },
+        {
+          "name": "Timeliness",
+          "plays": 87
+        },
+        {
+          "name": "Past Masters",
+          "plays": 83
+        },
+        {
+          "name": "The Black Parade",
+          "plays": 82
+        },
+        {
+          "name": "What We Live For",
+          "plays": 69
+        },
+        {
+          "name": "60 Years: The Artistry of Tony Bennett",
+          "plays": 69
+        }
+      ],
+      "platforms": {
+        "android": 5087,
+        "iOS": 1147,
+        "cast to device": 14,
+        "windows": 164
+      },
+      "hourly_distribution": [
+        357,
+        372,
+        540,
+        346,
+        520,
+        511,
+        554,
+        267,
+        249,
+        320,
+        250,
+        199,
+        412,
+        361,
+        253,
+        27,
+        53,
+        2,
+        23,
+        45,
+        150,
+        76,
+        181,
+        344
+      ],
+      "skip_rate": 0.0359,
+      "shuffle_rate": 0.7564
+    },
+    "2017": {
+      "streams": 26321,
+      "hours_played": 670.7,
+      "distinct_artists": 647,
+      "distinct_tracks": 3383,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 3244
+        },
+        {
+          "name": "John Mayer",
+          "plays": 1382
+        },
+        {
+          "name": "The Killers",
+          "plays": 1275
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 789
+        },
+        {
+          "name": "Radiohead",
+          "plays": 651
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 639
+        },
+        {
+          "name": "Johnny Cash",
+          "plays": 634
+        },
+        {
+          "name": "Led Zeppelin",
+          "plays": 614
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 534
+        },
+        {
+          "name": "Imagine Dragons",
+          "plays": 526
+        },
+        {
+          "name": "Lou Reed",
+          "plays": 495
+        },
+        {
+          "name": "The Velvet Underground",
+          "plays": 483
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 449
+        },
+        {
+          "name": "Coldplay",
+          "plays": 367
+        },
+        {
+          "name": "Arctic Monkeys",
+          "plays": 364
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Married with Children - 2014 Remaster \u2014 Oasis",
+          "plays": 85
+        },
+        {
+          "name": "In the Blood \u2014 John Mayer",
+          "plays": 49
+        },
+        {
+          "name": "The Man \u2014 The Killers",
+          "plays": 41
+        },
+        {
+          "name": "Speak For Me \u2014 John Mayer",
+          "plays": 38
+        },
+        {
+          "name": "Perfect \u2014 Ed Sheeran",
+          "plays": 38
+        },
+        {
+          "name": "All These Things That I've Done \u2014 The Killers",
+          "plays": 36
+        },
+        {
+          "name": "Rock & Roll - Full Length Version; 2015 Remaster \u2014 The Velvet Underground",
+          "plays": 35
+        },
+        {
+          "name": "Cold Cold Cold \u2014 Cage The Elephant",
+          "plays": 35
+        },
+        {
+          "name": "Let It Be - Remastered 2009 \u2014 The Beatles",
+          "plays": 34
+        },
+        {
+          "name": "I Will - Remastered 2009 \u2014 The Beatles",
+          "plays": 34
+        },
+        {
+          "name": "Mr. Brightside \u2014 The Killers",
+          "plays": 34
+        },
+        {
+          "name": "Free Fallin' - Live at the Nokia Theatre, Los Angeles, CA - December 2007 \u2014 John Mayer",
+          "plays": 33
+        },
+        {
+          "name": "Hotel Yorba \u2014 The White Stripes",
+          "plays": 33
+        },
+        {
+          "name": "Roll it on Home \u2014 John Mayer",
+          "plays": 33
+        },
+        {
+          "name": "Come Together - Remastered 2009 \u2014 The Beatles",
+          "plays": 31
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "The Beatles",
+          "plays": 447
+        },
+        {
+          "name": "Past Masters",
+          "plays": 418
+        },
+        {
+          "name": "Abbey Road",
+          "plays": 340
+        },
+        {
+          "name": "The Wall",
+          "plays": 275
+        },
+        {
+          "name": "Help!",
+          "plays": 262
+        },
+        {
+          "name": "Exile On Main Street",
+          "plays": 260
+        },
+        {
+          "name": "Where the Light Is: John Mayer Live In Los Angeles",
+          "plays": 253
+        },
+        {
+          "name": "Born and Raised",
+          "plays": 250
+        },
+        {
+          "name": "\u00f7",
+          "plays": 244
+        },
+        {
+          "name": "At Folsom Prison",
+          "plays": 240
+        }
+      ],
+      "platforms": {
+        "android": 24167,
+        "iOS": 1472,
+        "windows": 576,
+        "cast to device": 106
+      },
+      "hourly_distribution": [
+        1195,
+        2180,
+        1667,
+        1733,
+        1525,
+        1788,
+        1290,
+        1183,
+        1440,
+        1180,
+        1191,
+        1209,
+        938,
+        569,
+        706,
+        500,
+        638,
+        370,
+        461,
+        660,
+        340,
+        513,
+        1484,
+        1561
+      ],
+      "skip_rate": 0.0005,
+      "shuffle_rate": 0.7377
+    },
+    "2018": {
+      "streams": 14817,
+      "hours_played": 474.2,
+      "distinct_artists": 439,
+      "distinct_tracks": 2963,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 2006
+        },
+        {
+          "name": "Paul McCartney",
+          "plays": 690
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 608
+        },
+        {
+          "name": "John Mayer",
+          "plays": 491
+        },
+        {
+          "name": "The Killers",
+          "plays": 487
+        },
+        {
+          "name": "Johnny Cash",
+          "plays": 420
+        },
+        {
+          "name": "Led Zeppelin",
+          "plays": 338
+        },
+        {
+          "name": "Imagine Dragons",
+          "plays": 325
+        },
+        {
+          "name": "Radiohead",
+          "plays": 304
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 262
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 258
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 245
+        },
+        {
+          "name": "Oasis",
+          "plays": 199
+        },
+        {
+          "name": "Coldplay",
+          "plays": 198
+        },
+        {
+          "name": "The Velvet Underground",
+          "plays": 196
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Dominoes \u2014 Paul McCartney",
+          "plays": 28
+        },
+        {
+          "name": "No Words - 2010 Remaster \u2014 Paul McCartney",
+          "plays": 23
+        },
+        {
+          "name": "Universal Gleam \u2014 Liam Gallagher",
+          "plays": 22
+        },
+        {
+          "name": "Band On The Run - 2010 Remaster \u2014 Paul McCartney",
+          "plays": 22
+        },
+        {
+          "name": "S\u00e9 Que Te Duele \u2014 Alejandro Fern\u00e1ndez",
+          "plays": 21
+        },
+        {
+          "name": "With God on Our Side \u2014 Bob Dylan",
+          "plays": 21
+        },
+        {
+          "name": "I Don't Know \u2014 Paul McCartney",
+          "plays": 21
+        },
+        {
+          "name": "Come On To Me \u2014 Paul McCartney",
+          "plays": 20
+        },
+        {
+          "name": "Who Cares \u2014 Paul McCartney",
+          "plays": 20
+        },
+        {
+          "name": "People Want Peace \u2014 Paul McCartney",
+          "plays": 20
+        },
+        {
+          "name": "Til Kingdom Come \u2014 Coldplay",
+          "plays": 19
+        },
+        {
+          "name": "Brighton Rock \u2014 Queen",
+          "plays": 19
+        },
+        {
+          "name": "What Is Life - Remastered 2014 \u2014 George Harrison",
+          "plays": 19
+        },
+        {
+          "name": "The Rubberband Man - Single Version \u2014 The Spinners",
+          "plays": 19
+        },
+        {
+          "name": "Fuh You \u2014 Paul McCartney",
+          "plays": 19
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "The Beatles",
+          "plays": 401
+        },
+        {
+          "name": "Egypt Station",
+          "plays": 278
+        },
+        {
+          "name": "Past Masters",
+          "plays": 225
+        },
+        {
+          "name": "Beatles For Sale - Remastered",
+          "plays": 146
+        },
+        {
+          "name": "The Wall",
+          "plays": 141
+        },
+        {
+          "name": "Band On The Run",
+          "plays": 138
+        },
+        {
+          "name": "Abbey Road",
+          "plays": 137
+        },
+        {
+          "name": "Sgt. Pepper's Lonely Hearts Club Band",
+          "plays": 135
+        },
+        {
+          "name": "At Folsom Prison",
+          "plays": 133
+        },
+        {
+          "name": "Revolver",
+          "plays": 132
+        }
+      ],
+      "platforms": {
+        "android": 14498,
+        "windows": 316,
+        "iOS": 3
+      },
+      "hourly_distribution": [
+        475,
+        964,
+        772,
+        880,
+        781,
+        939,
+        1083,
+        995,
+        1052,
+        968,
+        1067,
+        1717,
+        849,
+        167,
+        86,
+        71,
+        31,
+        4,
+        17,
+        585,
+        225,
+        246,
+        435,
+        408
+      ],
+      "skip_rate": 0.0,
+      "shuffle_rate": 0.8685
+    },
+    "2019": {
+      "streams": 14875,
+      "hours_played": 477.1,
+      "distinct_artists": 493,
+      "distinct_tracks": 2940,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 2015
+        },
+        {
+          "name": "Paul McCartney",
+          "plays": 749
+        },
+        {
+          "name": "The Killers",
+          "plays": 615
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 609
+        },
+        {
+          "name": "John Mayer",
+          "plays": 521
+        },
+        {
+          "name": "Johnny Cash",
+          "plays": 340
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 321
+        },
+        {
+          "name": "Radiohead",
+          "plays": 296
+        },
+        {
+          "name": "Led Zeppelin",
+          "plays": 284
+        },
+        {
+          "name": "Mumford & Sons",
+          "plays": 273
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 272
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 253
+        },
+        {
+          "name": "Keuning",
+          "plays": 251
+        },
+        {
+          "name": "Liam Gallagher",
+          "plays": 223
+        },
+        {
+          "name": "Arctic Monkeys",
+          "plays": 208
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Reminder \u2014 Mumford & Sons",
+          "plays": 52
+        },
+        {
+          "name": "Once \u2014 Liam Gallagher",
+          "plays": 47
+        },
+        {
+          "name": "Maybe It's Time \u2014 Bradley Cooper",
+          "plays": 36
+        },
+        {
+          "name": "Band On The Run - 2010 Remaster \u2014 Paul McCartney",
+          "plays": 34
+        },
+        {
+          "name": "Mariposa Traicionera \u2014 Man\u00e1",
+          "plays": 33
+        },
+        {
+          "name": "Walk Across The Water \u2014 The Black Keys",
+          "plays": 32
+        },
+        {
+          "name": "Yesterday - Remastered 2009 \u2014 The Beatles",
+          "plays": 30
+        },
+        {
+          "name": "Land Of The Free \u2014 The Killers",
+          "plays": 29
+        },
+        {
+          "name": "Que Te Vaya Bonito \u2014 Jos\u00e9 Alfredo Jimenez",
+          "plays": 29
+        },
+        {
+          "name": "Let Me Roll It - 2010 Remaster \u2014 Paul McCartney",
+          "plays": 28
+        },
+        {
+          "name": "I Guess I Just Feel Like \u2014 John Mayer",
+          "plays": 28
+        },
+        {
+          "name": "Dominoes \u2014 Paul McCartney",
+          "plays": 27
+        },
+        {
+          "name": "Who Cares \u2014 Paul McCartney",
+          "plays": 26
+        },
+        {
+          "name": "Mamunia - 2010 Remaster \u2014 Paul McCartney",
+          "plays": 26
+        },
+        {
+          "name": "No Words - 2010 Remaster \u2014 Paul McCartney",
+          "plays": 26
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Abbey Road",
+          "plays": 281
+        },
+        {
+          "name": "The Beatles",
+          "plays": 269
+        },
+        {
+          "name": "Past Masters",
+          "plays": 263
+        },
+        {
+          "name": "Prismism",
+          "plays": 251
+        },
+        {
+          "name": "Egypt Station",
+          "plays": 205
+        },
+        {
+          "name": "McCartney",
+          "plays": 167
+        },
+        {
+          "name": "Band On The Run",
+          "plays": 162
+        },
+        {
+          "name": "Revolver",
+          "plays": 154
+        },
+        {
+          "name": "Help!",
+          "plays": 150
+        },
+        {
+          "name": "Sigh No More",
+          "plays": 150
+        }
+      ],
+      "platforms": {
+        "android": 14543,
+        "windows": 41,
+        "iOS": 291
+      },
+      "hourly_distribution": [
+        510,
+        744,
+        1327,
+        1101,
+        894,
+        904,
+        753,
+        740,
+        538,
+        804,
+        465,
+        391,
+        405,
+        393,
+        195,
+        147,
+        46,
+        117,
+        249,
+        582,
+        740,
+        813,
+        1078,
+        939
+      ],
+      "skip_rate": 0.0,
+      "shuffle_rate": 0.8577
+    },
+    "2020": {
+      "streams": 24317,
+      "hours_played": 921.9,
+      "distinct_artists": 820,
+      "distinct_tracks": 4005,
+      "top_artists": [
+        {
+          "name": "The Killers",
+          "plays": 2052
+        },
+        {
+          "name": "The Beatles",
+          "plays": 1951
+        },
+        {
+          "name": "John Mayer",
+          "plays": 763
+        },
+        {
+          "name": "The Strokes",
+          "plays": 683
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 559
+        },
+        {
+          "name": "Paul McCartney",
+          "plays": 459
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 431
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 403
+        },
+        {
+          "name": "Led Zeppelin",
+          "plays": 391
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 372
+        },
+        {
+          "name": "Johnny Cash",
+          "plays": 372
+        },
+        {
+          "name": "Howard Shore",
+          "plays": 354
+        },
+        {
+          "name": "Arctic Monkeys",
+          "plays": 350
+        },
+        {
+          "name": "The Kinks",
+          "plays": 346
+        },
+        {
+          "name": "Houndmouth",
+          "plays": 331
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Caution \u2014 The Killers",
+          "plays": 140
+        },
+        {
+          "name": "Ode To The Mets \u2014 The Strokes",
+          "plays": 128
+        },
+        {
+          "name": "Dying Breed \u2014 The Killers",
+          "plays": 109
+        },
+        {
+          "name": "Imploding The Mirage \u2014 The Killers",
+          "plays": 94
+        },
+        {
+          "name": "My Own Soul\u2019s Warning \u2014 The Killers",
+          "plays": 86
+        },
+        {
+          "name": "My God (feat. Weyes Blood) \u2014 The Killers",
+          "plays": 71
+        },
+        {
+          "name": "When The Dreams Run Dry \u2014 The Killers",
+          "plays": 62
+        },
+        {
+          "name": "Fire In Bone \u2014 The Killers",
+          "plays": 61
+        },
+        {
+          "name": "Blowback \u2014 The Killers",
+          "plays": 58
+        },
+        {
+          "name": "Thunder Road \u2014 Bruce Springsteen",
+          "plays": 54
+        },
+        {
+          "name": "Selfless \u2014 The Strokes",
+          "plays": 53
+        },
+        {
+          "name": "Bad Decisions \u2014 The Strokes",
+          "plays": 50
+        },
+        {
+          "name": "Not The Same Anymore \u2014 The Strokes",
+          "plays": 50
+        },
+        {
+          "name": "Me and Paul \u2014 Willie Nelson",
+          "plays": 48
+        },
+        {
+          "name": "Why Are Sundays So Depressing \u2014 The Strokes",
+          "plays": 46
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Imploding The Mirage",
+          "plays": 562
+        },
+        {
+          "name": "The New Abnormal",
+          "plays": 487
+        },
+        {
+          "name": "The Beatles",
+          "plays": 291
+        },
+        {
+          "name": "The Wall",
+          "plays": 267
+        },
+        {
+          "name": "Hot Fuss",
+          "plays": 227
+        },
+        {
+          "name": "Past Masters",
+          "plays": 225
+        },
+        {
+          "name": "Sam's Town",
+          "plays": 187
+        },
+        {
+          "name": "Exile On Main Street",
+          "plays": 184
+        },
+        {
+          "name": "Day & Age - Bonus Tracks",
+          "plays": 183
+        },
+        {
+          "name": "Selecci\u00f3n Especial",
+          "plays": 179
+        }
+      ],
+      "platforms": {
+        "android": 20380,
+        "iOS": 1,
+        "web player": 130,
+        "cast to device": 3773,
+        "windows": 33
+      },
+      "hourly_distribution": [
+        1793,
+        1535,
+        1377,
+        1337,
+        1534,
+        1824,
+        1491,
+        1009,
+        1257,
+        1073,
+        948,
+        991,
+        807,
+        476,
+        177,
+        134,
+        99,
+        99,
+        68,
+        241,
+        891,
+        1352,
+        1847,
+        1957
+      ],
+      "skip_rate": 0.0,
+      "shuffle_rate": 0.6933
+    },
+    "2021": {
+      "streams": 22923,
+      "hours_played": 890.6,
+      "distinct_artists": 1578,
+      "distinct_tracks": 5282,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 1442
+        },
+        {
+          "name": "The Killers",
+          "plays": 906
+        },
+        {
+          "name": "John Mayer",
+          "plays": 549
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 394
+        },
+        {
+          "name": "Kings of Leon",
+          "plays": 390
+        },
+        {
+          "name": "Howard Shore",
+          "plays": 336
+        },
+        {
+          "name": "Paul McCartney",
+          "plays": 321
+        },
+        {
+          "name": "The Strokes",
+          "plays": 314
+        },
+        {
+          "name": "Imagine Dragons",
+          "plays": 306
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 298
+        },
+        {
+          "name": "Ennio Morricone",
+          "plays": 286
+        },
+        {
+          "name": "Ed Sheeran",
+          "plays": 273
+        },
+        {
+          "name": "Radiohead",
+          "plays": 271
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 252
+        },
+        {
+          "name": "Coldplay",
+          "plays": 244
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Crucify Your Mind \u2014 Rodr\u00edguez",
+          "plays": 94
+        },
+        {
+          "name": "100,000 People \u2014 Kings of Leon",
+          "plays": 65
+        },
+        {
+          "name": "Not in Nottingham \u2014 Theo Lawrence and The Hearts",
+          "plays": 50
+        },
+        {
+          "name": "When You See Yourself, Are You Far Away \u2014 Kings of Leon",
+          "plays": 49
+        },
+        {
+          "name": "Did My Best \u2014 The Voidz",
+          "plays": 48
+        },
+        {
+          "name": "Common People - Full Length Version \u2014 Pulp",
+          "plays": 48
+        },
+        {
+          "name": "Ode To The Mets \u2014 The Strokes",
+          "plays": 47
+        },
+        {
+          "name": "The Getting By - Abridged \u2014 The Killers",
+          "plays": 46
+        },
+        {
+          "name": "Visiting Hours \u2014 Ed Sheeran",
+          "plays": 46
+        },
+        {
+          "name": "Waiting on a Song \u2014 Dan Auerbach",
+          "plays": 40
+        },
+        {
+          "name": "Echoing \u2014 Kings of Leon",
+          "plays": 40
+        },
+        {
+          "name": "For What It's Worth \u2014 Buffalo Springfield",
+          "plays": 40
+        },
+        {
+          "name": "Nuovo Cinema Paradiso \u2014 Ennio Morricone",
+          "plays": 38
+        },
+        {
+          "name": "Chevrolet Van \u2014 The Nude Party",
+          "plays": 38
+        },
+        {
+          "name": "Last Train Home \u2014 John Mayer",
+          "plays": 38
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Pressure Machine",
+          "plays": 356
+        },
+        {
+          "name": "When You See Yourself",
+          "plays": 226
+        },
+        {
+          "name": "The Beatles",
+          "plays": 219
+        },
+        {
+          "name": "Abbey Road",
+          "plays": 170
+        },
+        {
+          "name": "Past Masters",
+          "plays": 165
+        },
+        {
+          "name": "Sob Rock",
+          "plays": 162
+        },
+        {
+          "name": "The Wall",
+          "plays": 154
+        },
+        {
+          "name": "Take the Sadness Out of Saturday Night",
+          "plays": 146
+        },
+        {
+          "name": "The New Abnormal",
+          "plays": 143
+        },
+        {
+          "name": "The Lord of the Rings: The Fellowship of the Ring - the Complete Recordings",
+          "plays": 142
+        }
+      ],
+      "platforms": {
+        "android": 22869,
+        "windows": 54
+      },
+      "hourly_distribution": [
+        1228,
+        1143,
+        1602,
+        890,
+        1381,
+        2134,
+        1771,
+        1860,
+        1332,
+        1124,
+        750,
+        1357,
+        948,
+        399,
+        176,
+        193,
+        109,
+        48,
+        121,
+        137,
+        381,
+        864,
+        1401,
+        1574
+      ],
+      "skip_rate": 0.0,
+      "shuffle_rate": 0.6874
+    },
+    "2022": {
+      "streams": 16285,
+      "hours_played": 643.6,
+      "distinct_artists": 1221,
+      "distinct_tracks": 4554,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 1007
+        },
+        {
+          "name": "Joaqu\u00edn Sabina",
+          "plays": 576
+        },
+        {
+          "name": "The Killers",
+          "plays": 494
+        },
+        {
+          "name": "John Mayer",
+          "plays": 341
+        },
+        {
+          "name": "Howard Shore",
+          "plays": 333
+        },
+        {
+          "name": "Juanes",
+          "plays": 262
+        },
+        {
+          "name": "Jorge Drexler",
+          "plays": 261
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 243
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 229
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 224
+        },
+        {
+          "name": "Ennio Morricone",
+          "plays": 211
+        },
+        {
+          "name": "Imagine Dragons",
+          "plays": 203
+        },
+        {
+          "name": "Radiohead",
+          "plays": 198
+        },
+        {
+          "name": "Paul McCartney",
+          "plays": 194
+        },
+        {
+          "name": "Ed Sheeran",
+          "plays": 180
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "19 Dias y 500 Noches - En Directo \u2014 Joaqu\u00edn Sabina",
+          "plays": 116
+        },
+        {
+          "name": "Postdata \u2014 Joaqu\u00edn Sabina",
+          "plays": 52
+        },
+        {
+          "name": "Por el Bulevar de los Sue\u00f1os Rotos \u2014 Joaqu\u00edn Sabina",
+          "plays": 46
+        },
+        {
+          "name": "Se Me Olvid\u00f3 Otra Vez - Unplugged; 2020 Remasterizado \u2014 Man\u00e1",
+          "plays": 45
+        },
+        {
+          "name": "Yolanda \u2014 Pablo Milan\u00e9s",
+          "plays": 43
+        },
+        {
+          "name": "Telefon\u00eda \u2014 Jorge Drexler",
+          "plays": 43
+        },
+        {
+          "name": "Tu Carcel - En Vivo \u2014 Los Enanitos Verdes",
+          "plays": 38
+        },
+        {
+          "name": "Las transe\u00fantes \u2014 Jorge Drexler",
+          "plays": 38
+        },
+        {
+          "name": "Noches de Boda / Y Nos Dieron las Diez - Directo Luna Park \u2014 Joaqu\u00edn Sabina",
+          "plays": 38
+        },
+        {
+          "name": "Mediterraneo \u2014 Joan Manuel Serrat",
+          "plays": 37
+        },
+        {
+          "name": "Luz De Dia \u2014 Los Enanitos Verdes",
+          "plays": 37
+        },
+        {
+          "name": "Y Nos Dieron las Diez \u2014 Joaqu\u00edn Sabina",
+          "plays": 37
+        },
+        {
+          "name": "Concerning Hobbits \u2014 Howard Shore",
+          "plays": 36
+        },
+        {
+          "name": "Contigo \u2014 Joaqu\u00edn Sabina",
+          "plays": 36
+        },
+        {
+          "name": "Claudia's Theme - Version Eight \u2014 Lennie Niehaus",
+          "plays": 34
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Revolver",
+          "plays": 160
+        },
+        {
+          "name": "The Wall",
+          "plays": 159
+        },
+        {
+          "name": "Past Masters",
+          "plays": 134
+        },
+        {
+          "name": "Pressure Machine",
+          "plays": 133
+        },
+        {
+          "name": "The Lord of the Rings: The Fellowship of the Ring - the Complete Recordings",
+          "plays": 132
+        },
+        {
+          "name": "The Beatles",
+          "plays": 131
+        },
+        {
+          "name": "Nos Sobran Los Motivos",
+          "plays": 128
+        },
+        {
+          "name": "Abbey Road",
+          "plays": 120
+        },
+        {
+          "name": "Nuovo Cinema Paradiso (Original Motion Picture Soundtrack)",
+          "plays": 108
+        },
+        {
+          "name": "Lo Niego Todo",
+          "plays": 100
+        }
+      ],
+      "platforms": {
+        "android": 16271,
+        "windows": 9,
+        "cast to device": 5
+      },
+      "hourly_distribution": [
+        1027,
+        1020,
+        935,
+        870,
+        1144,
+        1175,
+        1523,
+        1006,
+        1305,
+        862,
+        581,
+        798,
+        584,
+        358,
+        209,
+        175,
+        113,
+        13,
+        5,
+        81,
+        144,
+        290,
+        898,
+        1169
+      ],
+      "skip_rate": 0.0363,
+      "shuffle_rate": 0.6701
+    },
+    "2023": {
+      "streams": 11023,
+      "hours_played": 515.1,
+      "distinct_artists": 1456,
+      "distinct_tracks": 4095,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 730
+        },
+        {
+          "name": "The Killers",
+          "plays": 531
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 348
+        },
+        {
+          "name": "John Mayer",
+          "plays": 200
+        },
+        {
+          "name": "Howard Shore",
+          "plays": 145
+        },
+        {
+          "name": "Taylor Swift",
+          "plays": 132
+        },
+        {
+          "name": "Juanes",
+          "plays": 127
+        },
+        {
+          "name": "Caloncho",
+          "plays": 124
+        },
+        {
+          "name": "Giacomo Puccini",
+          "plays": 115
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 113
+        },
+        {
+          "name": "Led Zeppelin",
+          "plays": 106
+        },
+        {
+          "name": "Pink Floyd",
+          "plays": 96
+        },
+        {
+          "name": "Imagine Dragons",
+          "plays": 93
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 93
+        },
+        {
+          "name": "The Teskey Brothers",
+          "plays": 91
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "You Sexy Thing \u2014 Hot Chocolate",
+          "plays": 54
+        },
+        {
+          "name": "Primera Cita \u2014 Carin Leon",
+          "plays": 40
+        },
+        {
+          "name": "Qu\u00e9 Bonito Es Querer \u2014 Manuel Carrasco",
+          "plays": 38
+        },
+        {
+          "name": "Billy 4 \u2014 Bob Dylan",
+          "plays": 30
+        },
+        {
+          "name": "Always Alright \u2014 Alabama Shakes",
+          "plays": 30
+        },
+        {
+          "name": "Malibu \u2014 Miley Cyrus",
+          "plays": 28
+        },
+        {
+          "name": "Gianni Schicchi: O mio babbino caro \u2014 Giacomo Puccini",
+          "plays": 27
+        },
+        {
+          "name": "Antes Que al M\u00edo \u2014 Los \u00c1ngeles Azules",
+          "plays": 25
+        },
+        {
+          "name": "Flowers \u2014 Miley Cyrus",
+          "plays": 23
+        },
+        {
+          "name": "Perderme Contigo \u2014 Bacilos",
+          "plays": 21
+        },
+        {
+          "name": "Cavalleria rusticana: Intermezzo \u2014 Pietro Mascagni",
+          "plays": 21
+        },
+        {
+          "name": "Cadiz \u2014 Las Lagrimas",
+          "plays": 20
+        },
+        {
+          "name": "Volver \u2014 Juanes",
+          "plays": 20
+        },
+        {
+          "name": "'O sole mio (Arr. Chiaramello) \u2014 Eduardo di Capua",
+          "plays": 20
+        },
+        {
+          "name": "Because I Got High \u2014 Afroman",
+          "plays": 20
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "The Beatles",
+          "plays": 127
+        },
+        {
+          "name": "Abbey Road",
+          "plays": 117
+        },
+        {
+          "name": "Past Masters",
+          "plays": 74
+        },
+        {
+          "name": "Sam's Town",
+          "plays": 67
+        },
+        {
+          "name": "Hot Fuss",
+          "plays": 66
+        },
+        {
+          "name": "Blood On The Tracks",
+          "plays": 65
+        },
+        {
+          "name": "Beatles For Sale - Remastered",
+          "plays": 63
+        },
+        {
+          "name": "Sawdust",
+          "plays": 62
+        },
+        {
+          "name": "The Wall",
+          "plays": 61
+        },
+        {
+          "name": "Day & Age - Bonus Tracks",
+          "plays": 60
+        }
+      ],
+      "platforms": {
+        "android": 10059,
+        "mac": 786,
+        "windows": 178
+      },
+      "hourly_distribution": [
+        666,
+        649,
+        563,
+        496,
+        702,
+        670,
+        835,
+        841,
+        806,
+        612,
+        618,
+        525,
+        427,
+        434,
+        122,
+        73,
+        26,
+        15,
+        15,
+        37,
+        116,
+        284,
+        636,
+        855
+      ],
+      "skip_rate": 0.2347,
+      "shuffle_rate": 0.7714
+    },
+    "2024": {
+      "streams": 9870,
+      "hours_played": 482.7,
+      "distinct_artists": 1072,
+      "distinct_tracks": 3638,
+      "top_artists": [
+        {
+          "name": "The Beatles",
+          "plays": 511
+        },
+        {
+          "name": "John Mayer",
+          "plays": 439
+        },
+        {
+          "name": "The Killers",
+          "plays": 423
+        },
+        {
+          "name": "ABBA",
+          "plays": 302
+        },
+        {
+          "name": "Paul McCartney",
+          "plays": 183
+        },
+        {
+          "name": "Howard Shore",
+          "plays": 166
+        },
+        {
+          "name": "Bob Dylan",
+          "plays": 151
+        },
+        {
+          "name": "Caloncho",
+          "plays": 129
+        },
+        {
+          "name": "Joaqu\u00edn Sabina",
+          "plays": 120
+        },
+        {
+          "name": "The Black Keys",
+          "plays": 118
+        },
+        {
+          "name": "Billy Joel",
+          "plays": 117
+        },
+        {
+          "name": "Kendrick Lamar",
+          "plays": 111
+        },
+        {
+          "name": "The Rolling Stones",
+          "plays": 110
+        },
+        {
+          "name": "Kanye West",
+          "plays": 109
+        },
+        {
+          "name": "Queen",
+          "plays": 98
+        }
+      ],
+      "top_tracks": [
+        {
+          "name": "Why Did It Have To Be Me? \u2014 ABBA",
+          "plays": 39
+        },
+        {
+          "name": "Superdeli \u2014 Caloncho",
+          "plays": 28
+        },
+        {
+          "name": "Does Your Mother Know \u2014 ABBA",
+          "plays": 26
+        },
+        {
+          "name": "Dancing Queen \u2014 ABBA",
+          "plays": 26
+        },
+        {
+          "name": "Knowing Me, Knowing You \u2014 ABBA",
+          "plays": 26
+        },
+        {
+          "name": "Waterloo \u2014 ABBA",
+          "plays": 25
+        },
+        {
+          "name": "Take A Chance On Me \u2014 ABBA",
+          "plays": 24
+        },
+        {
+          "name": "Mamma Mia \u2014 ABBA",
+          "plays": 23
+        },
+        {
+          "name": "Fernando \u2014 ABBA",
+          "plays": 23
+        },
+        {
+          "name": "The Return of the King (feat. Sir James Galway, Viggo Mortensen and Renee Fleming) \u2014 Howard Shore",
+          "plays": 22
+        },
+        {
+          "name": "I Guess I Just Feel Like \u2014 John Mayer",
+          "plays": 22
+        },
+        {
+          "name": "Super Trouper \u2014 ABBA",
+          "plays": 21
+        },
+        {
+          "name": "Reelin' In The Years \u2014 Steely Dan",
+          "plays": 20
+        },
+        {
+          "name": "New York Groove \u2014 Ace Frehley",
+          "plays": 20
+        },
+        {
+          "name": "boy \u2014 The Killers",
+          "plays": 19
+        }
+      ],
+      "top_albums": [
+        {
+          "name": "Arrival",
+          "plays": 119
+        },
+        {
+          "name": "Past Masters",
+          "plays": 85
+        },
+        {
+          "name": "The Beatles",
+          "plays": 79
+        },
+        {
+          "name": "Born and Raised",
+          "plays": 76
+        },
+        {
+          "name": "Paradise Valley",
+          "plays": 67
+        },
+        {
+          "name": "The Search for Everything",
+          "plays": 64
+        },
+        {
+          "name": "Battle Born",
+          "plays": 60
+        },
+        {
+          "name": "The College Dropout",
+          "plays": 59
+        },
+        {
+          "name": "The Lord of the Rings: The Fellowship of the Ring - the Complete Recordings",
+          "plays": 58
+        },
+        {
+          "name": "Continuum",
+          "plays": 57
+        }
+      ],
+      "platforms": {
+        "android": 9480,
+        "mac": 390
+      },
+      "hourly_distribution": [
+        739,
+        790,
+        725,
+        760,
+        766,
+        717,
+        818,
+        711,
+        648,
+        446,
+        449,
+        442,
+        215,
+        97,
+        75,
+        82,
+        21,
+        5,
+        22,
+        36,
+        81,
+        162,
+        390,
+        673
+      ],
+      "skip_rate": 0.2232,
+      "shuffle_rate": 0.7921
+    }
+  }
+}

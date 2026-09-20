@@ -1,0 +1,138 @@
+{
+  "chapters": [
+    {
+      "id": "chapter_1",
+      "title": "The Formative Playlist",
+      "period": "2013 \u2014 2014",
+      "primary_dataset": "Spotify History",
+      "streams": 208,
+      "hours": 8.9,
+      "top_artist": "John Mayer",
+      "narrative": "The story begins in July 2013 with 208 streams primarily on web player. Early listening patterns set the acoustic baseline before financial records begin.",
+      "highlights": [
+        "11.4-year journey opens on July 8, 2013",
+        "Dominant listening platform: Web Player",
+        "Total hours in this era: 9 hrs"
+      ]
+    },
+    {
+      "id": "chapter_2",
+      "title": "The Daily Ledger & The Commute",
+      "period": "2015 \u2014 2018",
+      "primary_dataset": "Spotify History + Daily Household Transactions",
+      "streams": 50359,
+      "hours": 1401.7,
+      "transactions_count": 2461,
+      "total_expense_inr": 1957390.53,
+      "total_income_inr": 3042397.35,
+      "top_payment_mode": "Saving Bank account 1",
+      "top_category": "Food",
+      "narrative": "Spanning January 2015 to September 2018, this era captures 2,461 detailed receipts totaling \u20b91,957,391 in recorded living expenses alongside 50,359 musical tracks. Commutes across local transit (trains, autos) coincide with mobile audio habits.",
+      "highlights": [
+        "2,461 household ledger entries across 48 categories",
+        "Top payment mode: Saving Bank account 1 (1223 records)",
+        "191 verified high-scoring temporal co-occurrences with Spotify"
+      ]
+    },
+    {
+      "id": "chapter_3",
+      "title": "The Pure Sound Interlude",
+      "period": "2019 \u2014 2021",
+      "primary_dataset": "Spotify History",
+      "streams": 62115,
+      "hours": 2289.6,
+      "narrative": "Between financial record collections, 62,115 streams trace an uninterrupted 3-year audio journey. The data captures changing daily routines and evolving artist preferences during the 2020-2021 period.",
+      "highlights": [
+        "62,115 music streams without transaction overlap",
+        "Distinct artists listened: 1,993",
+        "Deep listening phase with high album play completion"
+      ]
+    },
+    {
+      "id": "chapter_4",
+      "title": "Multi-Facet Mobility",
+      "period": "2022 \u2014 2024",
+      "primary_dataset": "Spotify History + Augmented India Transactions",
+      "streams": 37178,
+      "hours": 1641.3,
+      "transactions_count": 9417,
+      "total_expense_inr": 45169069.34,
+      "top_category": "online_shopping",
+      "narrative": "From April 2022 to April 2024, 10,267 multi-facet transactions across travel, entertainment, fitness, and retail coincide with 37,178 streams across modern platforms.",
+      "highlights": [
+        "10,267 transactions across 4 multi-facet verticals",
+        "Travel & entertainment dominate active lifestyle spending",
+        "309 verified high-scoring co-occurrences with Spotify"
+      ]
+    }
+  ],
+  "verified_patterns": {
+    "hourly_listening_distribution": [
+      8039,
+      9513,
+      9790,
+      8595,
+      9486,
+      10986,
+      10357,
+      8963,
+      8885,
+      7546,
+      6458,
+      7746,
+      5737,
+      3316,
+      2030,
+      1409,
+      1141,
+      677,
+      993,
+      2466,
+      3111,
+      4641,
+      8450,
+      9525
+    ],
+    "peak_hour": 5,
+    "night_owl_percentage": 30.31,
+    "household_payment_modes_by_year": {
+      "2015": {
+        "Credit Card": 10,
+        "Cash": 237,
+        "Saving Bank account 1": 154
+      },
+      "2016": {
+        "Cash": 123,
+        "Saving Bank account 1": 226
+      },
+      "2017": {
+        "Saving Bank account 1": 580,
+        "Cash": 386,
+        "Credit Card": 60,
+        "Recurring Deposit": 3,
+        "Saving Bank account 2": 1,
+        "Equity Mutual Fund B": 2,
+        "Share Market Trading": 2,
+        "Fixed Deposit": 1
+      },
+      "2018": {
+        "Credit Card": 92,
+        "Cash": 300,
+        "Saving Bank account 1": 263,
+        "Equity Mutual Fund B": 9,
+        "Equity Mutual Fund A": 1,
+        "Equity Mutual Fund D": 1,
+        "Equity Mutual Fund C": 1,
+        "Share Market Trading": 3,
+        "Saving Bank account 2": 4,
+        "Debit Card": 2
+      }
+    },
+    "india_categories": {
+      "entertainment": 2163,
+      "fitness_and_medical": 1907,
+      "travel": 2238,
+      "online_shopping": 2367
+    }
+  }
+}

@@ -1,0 +1,380 @@
+/* ── ThermalReceipt.css ─────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Loading */
+.tr-loading, .tr-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 50vh;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  color: #71717a;
+}
+.tr-spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: #22d3ee;
+  border-radius: 50%;
+  animation: tr-spin 0.7s linear infinite;
+}
+@keyframes tr-spin { to { transform: rotate(360deg); } }
+
+/* Root */
+.tr-root {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: #040d14;
+  color: #f0f9ff;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+/* Page header */
+.tr-page-header {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+.tr-page-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #fff 20%, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.4rem;
+}
+.tr-page-sub {
+  color: rgba(255,255,255,0.45);
+  font-size: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+/* Chapter totals strip */
+.tr-totals {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.tr-total-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  gap: 0.15rem;
+}
+.tr-total-pill__period {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: #22d3ee;
+}
+.tr-total-pill__streams,
+.tr-total-pill__tx {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Era filter */
+.tr-era-filter {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.tr-era-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tr-era-btn.is-active,
+.tr-era-btn:hover {
+  background: #22d3ee;
+  border-color: #22d3ee;
+  color: #000;
+}
+
+/* Stage */
+.tr-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Controls */
+.tr-controls { display: flex; align-items: center; }
+.tr-ctrl-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.6);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.tr-ctrl-btn:not(:disabled):hover {
+  background: #22d3ee;
+  color: #000;
+  border-color: #22d3ee;
+}
+.tr-ctrl-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+/* Nav row */
+.tr-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.tr-nav-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+}
+.tr-random-btn {
+  background: rgba(34,211,238,0.1);
+  border: 1px solid rgba(34,211,238,0.3);
+  color: #22d3ee;
+  border-radius: 999px;
+  padding: 0.45rem 1.25rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tr-random-btn:hover {
+  background: #22d3ee;
+  color: #000;
+}
+
+/* ── Receipt paper ── */
+.tr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tr-paper {
+  width: 100%;
+  max-width: 340px;
+  background: #fafaf8;
+  color: #111;
+  border-radius: 4px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.4),
+    0 8px 24px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(0,0,0,0.2);
+  animation: tr-print 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes tr-print {
+  from { clip-path: inset(0 0 100% 0); opacity: 0; }
+  to   { clip-path: inset(0 0 0% 0); opacity: 1; }
+}
+
+/* Torn edges */
+.tr-tear {
+  width: 100%;
+  height: 18px;
+  background:
+    radial-gradient(circle at 50% 0%, transparent 6px, #fafaf8 6px) 0 0 / 14px 12px repeat-x,
+    #fafaf8;
+  flex-shrink: 0;
+}
+.tr-tear--bottom {
+  transform: rotate(180deg);
+}
+
+/* Header */
+.tr-header {
+  text-align: center;
+  padding: 1rem 1rem 0.5rem;
+  font-family: 'Space Mono', monospace;
+}
+.tr-logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #111;
+}
+.tr-logo-sub {
+  font-size: 0.7rem;
+  color: #555;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.tr-store-id {
+  font-size: 0.68rem;
+  color: #888;
+  margin-top: 0.4rem;
+  letter-spacing: 0.1em;
+}
+.tr-ts {
+  font-size: 0.62rem;
+  color: #999;
+  margin-top: 0.2rem;
+}
+
+/* Divider */
+.tr-divider {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: #bbb;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Sections */
+.tr-section {
+  padding: 0.5rem 1rem 0.75rem;
+  font-family: 'Space Mono', monospace;
+}
+.tr-section__head {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 0.3rem;
+}
+.tr-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+.tr-row--total {
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  padding-top: 0.3rem;
+  border-top: 1px dashed #ddd;
+}
+.tr-row__label {
+  color: #666;
+  flex-shrink: 0;
+  min-width: 5rem;
+}
+.tr-row__value {
+  color: #111;
+  text-align: right;
+  font-weight: 600;
+  word-break: break-word;
+}
+.tr-row__value--sm { font-size: 0.65rem; }
+
+/* Score */
+.tr-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1rem;
+  margin-bottom: 0.5rem;
+}
+.tr-score__num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  line-height: 1;
+}
+.tr-score__denom {
+  font-size: 1rem;
+  color: #888;
+}
+.tr-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+.tr-reason {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  color: #333;
+}
+.tr-reason__dot {
+  color: #22d3ee;
+  flex-shrink: 0;
+}
+.tr-disclaimer {
+  font-size: 0.58rem;
+  color: #aaa;
+  line-height: 1.4;
+  text-align: center;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Barcode */
+.tr-barcode {
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.04em;
+  color: #111;
+  padding: 0.5rem 1rem 0;
+  word-break: break-all;
+  line-height: 0.9;
+}
+.tr-barcode-num {
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: #777;
+  margin-bottom: 0.25rem;
+}
+
+/* Footer */
+.tr-footer {
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: #aaa;
+  padding: 0.4rem 1rem 0.6rem;
+  line-height: 1.6;
+}
+
+/* Print button */
+.tr-print-btn {
+  background: rgba(34,211,238,0.1);
+  border: 1px solid rgba(34,211,238,0.3);
+  color: #22d3ee;
+  border-radius: 999px;
+  padding: 0.45rem 1.25rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tr-print-btn:hover {
+  background: #22d3ee;
+  color: #000;
+}
