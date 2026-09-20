@@ -2,16 +2,24 @@ import { useEffect, useRef, lazy, Suspense } from 'react';
 import './InnerPage.css';
 
 // Lazy-load the experience components so they don't block initial paint
-const StoryChapters = lazy(() => import('../components/timeline/StoryChapters.jsx'));
+const StoryChapters  = lazy(() => import('../components/timeline/StoryChapters.jsx'));
 const ThermalReceipt = lazy(() => import('../components/receipts/ThermalReceipt.jsx'));
 const ConnectionMatrix = lazy(() => import('../components/connections/ConnectionMatrix.jsx'));
-const BehavioralRadar = lazy(() => import('../components/analytics/BehavioralRadar.jsx'));
+const BehavioralRadar  = lazy(() => import('../components/analytics/BehavioralRadar.jsx'));
 
 const PAGE_COMPONENTS = {
-  story: StoryChapters,
-  receipts: ThermalReceipt,
+  story:       StoryChapters,
+  receipts:    ThermalReceipt,
   connections: ConnectionMatrix,
-  patterns: BehavioralRadar,
+  patterns:    BehavioralRadar,
+};
+
+// Archive folder labels for each module
+const FOLDER_LABELS = {
+  story:       'ARCHIVE · LIFE CHAPTERS',
+  receipts:    'ARCHIVE · RECEIPT PRINTER',
+  connections: 'ARCHIVE · CO-OCCURRENCES',
+  patterns:    'ARCHIVE · BEHAVIOURAL PATTERNS',
 };
 
 const smooth = () =>
@@ -21,7 +29,7 @@ function SuspenseFallback({ accent = '#a78bfa' }) {
   return (
     <div className="ip-suspense">
       <span className="ip-suspense__spinner" style={{ borderTopColor: accent }} />
-      <span className="ip-suspense__text">Loading experience…</span>
+      <span className="ip-suspense__text">Opening archive…</span>
     </div>
   );
 }
@@ -55,17 +63,22 @@ export default function InnerPage({ brand = 'Your Life, In Receipts', page, onRe
 
   const ExperienceComponent = PAGE_COMPONENTS[page.id] ?? null;
   const accent = page.palette?.[1] ?? '#a78bfa';
+  const folderLabel = FOLDER_LABELS[page.id] ?? 'ARCHIVE FILE';
 
   return (
     <div className="ip" ref={rootRef}>
-      {/* ── Thin hero bar ── */}
-      <header className="ip-mini-hero" style={{ '--pg-accent': accent, '--pg-bg': page.palette?.[0] }}>
-        <div className="ip-mini-hero__art" data-art={page.art} aria-hidden="true" />
-        <div className="ip-mini-hero__text">
-          <span className="ip-mini-hero__icon">{page.icon}</span>
-          <h1 className="ip-mini-hero__title" data-reveal>{page.title}</h1>
-          <p className="ip-mini-hero__sub" data-reveal style={{ '--d': '.2s' }}>{page.subtitle}</p>
+      {/* ── Archive folder tab ── */}
+      <header className="ip-folder" style={{ '--pg-accent': accent }}>
+        <div className="ip-folder__tab">
+          <span className="ip-folder__label">{folderLabel}</span>
+          <span className="ip-folder__icon" aria-hidden="true">{page.icon}</span>
         </div>
+        <div className="ip-folder__body" data-reveal>
+          <h1 className="ip-folder__title">{page.title}</h1>
+          <p className="ip-folder__sub">{page.subtitle}</p>
+        </div>
+        {/* Top-border accent line */}
+        <div className="ip-folder__accent-bar" aria-hidden="true" />
       </header>
 
       {/* ── Dynamic experience ── */}

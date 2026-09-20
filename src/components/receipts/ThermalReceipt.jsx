@@ -150,7 +150,7 @@ function ReceiptPrinter({ conn }) {
           <div className="tr-section__head">CO-OCCURRENCE SCORE</div>
           <div className="tr-score">
             <span className="tr-score__num">{score}</span>
-            <span className="tr-score__denom">/12</span>
+            <span className="tr-score__denom">/10</span>
           </div>
           <div className="tr-reasons">
             {reasons.map((r, i) => (
@@ -222,9 +222,10 @@ export default function ThermalReceipt() {
     <div className="tr-root">
       {/* Page header */}
       <div className="tr-page-header">
-        <h2 className="tr-page-title">🧾 Receipt Printer</h2>
+        <div className="tr-page-archive-label">RECEIPT ARCHIVE</div>
+        <h2 className="tr-page-title">Receipt Printer</h2>
         <p className="tr-page-sub">
-          {fmtNum(filtered.length)} co-occurrence receipts · each one a real moment from the data
+          {fmtNum(filtered.length)} verified receipts · each one a documented moment from the data
         </p>
 
         {/* Chapter totals strip */}

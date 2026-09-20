@@ -8,87 +8,154 @@ import {
 } from '../../services/dataService';
 import './ConnectionMatrix.css';
 
-const SCORE_REASONS_ICONS = {
+/* ── Reason icon map ─────────────────────────────────────────── */
+const REASON_ICONS = {
   'Same calendar day': '📅',
-  'Within': '⏱️',
+  'Within': '⏱',
   'Mobile Spotify stream': '📱',
   'Mobile listening': '📱',
   'Transportation purchase': '🚉',
-  'Travel purchase': '✈️',
+  'Travel purchase': '✈',
   'Late-night': '🌙',
   'Shared digital entertainment': '🎬',
   'Shared entertainment theme': '🎬',
-  'Travel purchase and music': '✈️',
+  'Travel purchase and music': '✈',
   'Transportation purchase and music': '🚉',
   'Monthly milestone': '💰',
 };
 
 function getReasonIcon(reason) {
-  for (const [key, icon] of Object.entries(SCORE_REASONS_ICONS)) {
+  for (const [key, icon] of Object.entries(REASON_ICONS)) {
     if (reason.startsWith(key)) return icon;
   }
   return '●';
 }
 
-function ConnectionCard({ conn }) {
+/* ── Evidence Pair ───────────────────────────────────────────── */
+function EvidencePair({ conn }) {
   const { score, reasons, era, transaction: tx, spotify: sp } = conn;
   const sl = scoreLabel(score);
+
+  const txLabel = tx.note || tx.merchant || tx.category?.replace(/_/g, ' ') || '—';
+  const txCat = tx.category?.replace(/_/g, ' ');
+  const txSub = tx.subcategory || '';
+  const txDate = tx.date || '';
+  const txTime = tx.time?.slice(0, 5) || '';
+  const spDate = sp.ts?.slice(0, 10) || '';
+  const spTime = sp.ts?.slice(11, 16) || '';
+
   return (
-    <article className="cm-card">
-      {/* Score badge */}
-      <div className="cm-card__score-row">
-        <span className="cm-card__score" style={{ '--sl-color': sl.color }}>
-          {score}/10
-        </span>
-        <span className="cm-card__score-label" style={{ color: sl.color }}>{sl.label}</span>
-        <span className="cm-card__era">{era}</span>
+    <article className="ep" aria-label={`Connection: ${sp.track} with ${txLabel}`}>
+      {/* ── Top meta bar ── */}
+      <div className="ep__bar">
+        <span className="ep__era">{era}</span>
+        <span className="ep__date">{txDate}</span>
+        <span className="ep__id">{conn.connection_id}</span>
       </div>
 
-      {/* Two-column body */}
-      <div className="cm-card__body">
-        {/* Left: Spotify */}
-        <div className="cm-card__col cm-card__col--spotify">
-          <div className="cm-card__col-label">🎵 Spotify</div>
-          <p className="cm-card__track">{sp.track || 'Unknown track'}</p>
-          <p className="cm-card__artist">{sp.artist || 'Unknown artist'}</p>
-          <p className="cm-card__meta">{sp.album}</p>
-          <p className="cm-card__meta">{sp.platform} · {fmtMs(sp.ms_played)}</p>
-          <p className="cm-card__ts">{sp.ts?.slice(0, 16).replace('T', ' ')}</p>
-        </div>
+      {/* ── Two artifacts + connector ── */}
+      <div className="ep__body">
 
-        {/* Divider */}
-        <div className="cm-card__divider" aria-hidden="true">⟷</div>
-
-        {/* Right: Transaction */}
-        <div className="cm-card__col cm-card__col--tx">
-          <div className="cm-card__col-label">
-            {tx.dataset === 'india_transact' ? '🧾 Transaction' : '🏠 Household'}
+        {/* LEFT — music artifact */}
+        <div className="ep__artifact ep__artifact--music" role="region" aria-label="Music record">
+          <div className="ep__artifact-type">
+            <span className="ep__artifact-dot" />
+            AUDIO RECORD
           </div>
-          {tx.note && <p className="cm-card__track">{tx.note}</p>}
-          {tx.merchant && <p className="cm-card__track">{tx.merchant}</p>}
-          <p className="cm-card__artist">
-            {tx.category?.replace(/_/g, ' ')}{tx.subcategory ? ` · ${tx.subcategory}` : ''}
-          </p>
-          {tx.amount && <p className="cm-card__meta">{fmtINR(tx.amount)}</p>}
-          {tx.city && <p className="cm-card__meta">📍 {tx.city}{tx.state ? `, ${tx.state}` : ''}</p>}
-          {tx.mode && <p className="cm-card__meta">💳 {tx.mode}</p>}
-          <p className="cm-card__ts">{tx.date} {tx.time?.slice(0, 5) ?? ''}</p>
+          <div className="ep__track">{sp.track || 'Unknown track'}</div>
+          <div className="ep__artist">{sp.artist || 'Unknown artist'}</div>
+          <div className="ep__album ep__muted">{sp.album?.slice(0, 32)}</div>
+          <div className="ep__artifact-foot">
+            <span className="ep__platform">{sp.platform}</span>
+            <span className="ep__duration">{fmtMs(sp.ms_played)}</span>
+          </div>
+          <div className="ep__timestamp">{spDate}<br />{spTime} IST</div>
+        </div>
+
+        {/* CENTER — evidence connector */}
+        <div className="ep__connector" aria-hidden="true">
+          <div className="ep__thread ep__thread--top" />
+          <div className="ep__score-seal" style={{ '--seal-color': sl.color }}>
+            <span className="ep__score-num">{score}</span>
+            <span className="ep__score-denom">/10</span>
+            <span className="ep__score-label">{sl.label}</span>
+          </div>
+          <div className="ep__thread ep__thread--bot" />
+        </div>
+
+        {/* RIGHT — transaction/receipt artifact */}
+        <div className="ep__artifact ep__artifact--receipt" role="region" aria-label="Transaction record">
+          <div className="ep__artifact-type ep__artifact-type--dark">
+            <span className="ep__artifact-dot ep__artifact-dot--ink" />
+            {tx.dataset === 'india_transact' ? 'TRANSACTION RECORD' : 'HOUSEHOLD LEDGER'}
+          </div>
+          <div className="ep__tx-primary">{txLabel.slice(0, 36)}</div>
+          <div className="ep__tx-cat">{txCat}{txSub ? ` · ${txSub}` : ''}</div>
+          {tx.amount > 0 && <div className="ep__tx-amount">{fmtINR(tx.amount)}</div>}
+          {tx.city && (
+            <div className="ep__tx-location ep__muted-ink">
+              📍 {tx.city}{tx.state ? `, ${tx.state}` : ''}
+            </div>
+          )}
+          {tx.mode && <div className="ep__muted-ink ep__tx-mode">via {tx.mode}</div>}
+          <div className="ep__timestamp ep__timestamp--ink">{txDate}<br />{txTime}</div>
         </div>
       </div>
 
-      {/* Reasons */}
-      <ul className="cm-card__reasons">
-        {reasons.map((r, i) => (
-          <li key={i} className="cm-reason-pill">
-            <span className="cm-reason-pill__icon">{getReasonIcon(r)}</span>
-            {r}
-          </li>
-        ))}
-      </ul>
+      {/* ── Evidence reasons ── */}
+      <div className="ep__evidence">
+        <span className="ep__evidence-label">Evidence signals</span>
+        <div className="ep__evidence-pills">
+          {reasons.map((r, i) => (
+            <span key={i} className="ep__pill">
+              <span className="ep__pill-icon">{getReasonIcon(r)}</span>
+              {r}
+            </span>
+          ))}
+        </div>
+        <div className="ep__disclaimer">
+          Co-occurrence only · No causal relationship implied or claimed
+        </div>
+      </div>
     </article>
   );
 }
 
+/* ── Archive Search Bar ──────────────────────────────────────── */
+function ArchiveSearch({ query, onQuery, era, onEra, count, total }) {
+  return (
+    <div className="cm-search-bar">
+      <div className="cm-search-bar__field">
+        <span className="cm-search-bar__icon" aria-hidden="true">⌕</span>
+        <input
+          className="cm-search-bar__input"
+          type="search"
+          placeholder="Search artists, tracks, notes, merchants, cities…"
+          value={query}
+          onChange={onQuery}
+          aria-label="Search connections"
+          id="conn-search"
+        />
+      </div>
+      <select
+        className="cm-era-select"
+        value={era}
+        onChange={onEra}
+        aria-label="Filter by era"
+        id="conn-era"
+      >
+        <option value="">All Eras</option>
+        <option value="2015-2018">2015–2018 · Household</option>
+        <option value="2022-2024">2022–2024 · India Transact</option>
+      </select>
+      <span className="cm-count">
+        {count.toLocaleString()} <span className="cm-count__of">of {total.toLocaleString()}</span>
+      </span>
+    </div>
+  );
+}
+
+/* ── Main Export ─────────────────────────────────────────────── */
 export default function ConnectionMatrix() {
   const [allConns, setAllConns] = useState([]);
   const [meta, setMeta] = useState({ total_scored_connections: 0, curated_count: 0 });
@@ -97,7 +164,7 @@ export default function ConnectionMatrix() {
   const [query, setQuery] = useState('');
   const [era, setEra] = useState('');
   const [page, setPage] = useState(0);
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = 8;
 
   useEffect(() => {
     loadCuratedConnections()
@@ -116,63 +183,95 @@ export default function ConnectionMatrix() {
   const handleQuery = useCallback((e) => { setQuery(e.target.value); setPage(0); }, []);
   const handleEra = useCallback((e) => { setEra(e.target.value); setPage(0); }, []);
 
-  if (loading) return <div className="cm-loading"><span className="cm-spinner" />Loading co-occurrences…</div>;
-  if (error) return <div className="cm-error">Error: {error}</div>;
+  if (loading) {
+    return (
+      <div className="cm-loading">
+        <span className="cm-spinner" />
+        <span>Assembling the evidence board…</span>
+      </div>
+    );
+  }
+  if (error) return <div className="cm-error">Error loading connections: {error}</div>;
 
   return (
     <div className="cm-root">
-      {/* Header */}
-      <div className="cm-header">
-        <h2 className="cm-header__title">Co-Occurrence Explorer</h2>
-        <p className="cm-header__sub">
-          <strong style={{ color: '#4ade80' }}>{meta.total_scored_connections.toLocaleString()}</strong> total scored pairs detected ·
-          top <strong style={{ color: '#4ade80' }}>{meta.curated_count}</strong> curated by score · showing <strong>{filtered.length}</strong>
-        </p>
-        <div className="cm-header__disclaimer">
-          ⚠️ Connections are temporal/contextual co-occurrences only. No causal relationship is implied or claimed.
+
+      {/* ── Archive header ── */}
+      <div className="cm-archive-header">
+        <div className="cm-archive-header__top">
+          <div className="cm-archive-header__label">EVIDENCE ARCHIVE</div>
+          <div className="cm-archive-header__stats">
+            <span><strong>{meta.total_scored_connections.toLocaleString()}</strong> pairs scored</span>
+            <span className="cm-archive-header__sep">·</span>
+            <span><strong>{meta.curated_count}</strong> curated by strength</span>
+            <span className="cm-archive-header__sep">·</span>
+            <span>Household ↔ India: <strong className="cm-no-connect">0 connections</strong> (era boundary enforced)</span>
+          </div>
+        </div>
+
+        {/* Score scale */}
+        <div className="cm-scale">
+          <div className="cm-scale__item">
+            <span className="cm-scale__pip" style={{ background: '#22d3ee' }} />
+            <span>10 · Maximum (all signals)</span>
+          </div>
+          <div className="cm-scale__item">
+            <span className="cm-scale__pip" style={{ background: '#a78bfa' }} />
+            <span>7–9 · Strong</span>
+          </div>
+          <div className="cm-scale__item">
+            <span className="cm-scale__pip" style={{ background: '#fbbf24' }} />
+            <span>5–6 · Moderate</span>
+          </div>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="cm-filters">
-        <input
-          className="cm-search"
-          type="search"
-          placeholder="Search artists, tracks, notes, merchants, cities…"
-          value={query}
-          onChange={handleQuery}
-          aria-label="Search connections"
-        />
-        <select className="cm-select" value={era} onChange={handleEra} aria-label="Filter by era">
-          <option value="">All Eras</option>
-          <option value="2015-2018">2015–2018 (Household)</option>
-          <option value="2022-2024">2022–2024 (India Transact)</option>
-        </select>
-      </div>
+      {/* ── Search / filter ── */}
+      <ArchiveSearch
+        query={query}
+        onQuery={handleQuery}
+        era={era}
+        onEra={handleEra}
+        count={filtered.length}
+        total={allConns.length}
+      />
 
-      {/* Score legend */}
-      <div className="cm-legend">
-        <div className="cm-legend__item"><span style={{ background: '#22d3ee', borderRadius: 3 }}>◼</span> 10 = Maximum (all 5 signals)</div>
-        <div className="cm-legend__item"><span style={{ color: '#a78bfa' }}>◼</span> 7–9 = Strong</div>
-        <div className="cm-legend__item"><span style={{ color: '#fbbf24' }}>◼</span> 5–6 = Moderate</div>
-        <div className="cm-legend__item">Household ↔ India: <strong style={{ color: '#f87171' }}>0 connections (boundary enforced)</strong></div>
-      </div>
-
-      {/* Cards grid */}
+      {/* ── Evidence pairs ── */}
       {visible.length === 0 ? (
-        <div className="cm-empty">No connections match your filters. Try a different search term.</div>
+        <div className="cm-empty">
+          <span>No evidence found for this search.</span>
+          <span className="cm-empty__sub">Try a different search term or era filter.</span>
+        </div>
       ) : (
-        <div className="cm-grid">
-          {visible.map((c) => <ConnectionCard key={c.connection_id} conn={c} />)}
+        <div className="cm-board">
+          {visible.map((c) => (
+            <EvidencePair key={c.connection_id} conn={c} />
+          ))}
         </div>
       )}
 
-      {/* Pagination */}
+      {/* ── Pagination ── */}
       {totalPages > 1 && (
-        <div className="cm-pagination">
-          <button className="cm-page-btn" disabled={page === 0} onClick={() => setPage(page - 1)}>← Prev</button>
-          <span className="cm-page-info">{page + 1} / {totalPages}</span>
-          <button className="cm-page-btn" disabled={page >= totalPages - 1} onClick={() => setPage(page + 1)}>Next →</button>
+        <div className="cm-pagination" role="navigation" aria-label="Page navigation">
+          <button
+            className="cm-page-btn"
+            disabled={page === 0}
+            onClick={() => setPage(page - 1)}
+            aria-label="Previous page"
+          >
+            ← Prev
+          </button>
+          <span className="cm-page-info">
+            {page + 1} <span className="cm-page-of">/ {totalPages}</span>
+          </span>
+          <button
+            className="cm-page-btn"
+            disabled={page >= totalPages - 1}
+            onClick={() => setPage(page + 1)}
+            aria-label="Next page"
+          >
+            Next →
+          </button>
         </div>
       )}
     </div>

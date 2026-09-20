@@ -13,7 +13,7 @@ import {
 } from '../../services/dataService';
 import './BehavioralRadar.css';
 
-/* ─── 24h Circadian Clock ─────────────────────────────────────────────── */
+/* ─── 24h Circadian Clock ──────────────────────────────────── */
 function CircadianClock({ hourly }) {
   const canvasRef = useRef(null);
 
@@ -31,19 +31,17 @@ function CircadianClock({ hourly }) {
 
     ctx.clearRect(0, 0, W, H);
 
-    // Draw segments
     for (let h = 0; h < 24; h++) {
       const startAngle = ((h / 24) * 2 * Math.PI) - Math.PI / 2;
       const endAngle = (((h + 1) / 24) * 2 * Math.PI) - Math.PI / 2;
       const ratio = hourly[h] / max;
       const barR = innerR + (outerR - innerR) * ratio;
 
-      // Colour: deep night (0-4 AM) = cyan, morning = amber, day = green, evening = purple
-      let hue = 200; // default cyan
-      if (h >= 5 && h < 9) hue = 40;   // amber morning
-      if (h >= 9 && h < 17) hue = 160; // green day
-      if (h >= 17 && h < 21) hue = 270; // purple evening
-      if (h >= 21 || h < 1) hue = 200; // cyan night
+      let hue = 200;
+      if (h >= 5 && h < 9) hue = 40;
+      if (h >= 9 && h < 17) hue = 160;
+      if (h >= 17 && h < 21) hue = 270;
+      if (h >= 21 || h < 1) hue = 200;
 
       ctx.beginPath();
       ctx.moveTo(cx + Math.cos(startAngle) * innerR, cy + Math.sin(startAngle) * innerR);
@@ -54,11 +52,10 @@ function CircadianClock({ hourly }) {
       ctx.fill();
     }
 
-    // Hour labels
     ctx.font = `bold ${Math.round(outerR * 0.09)}px monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
     [0, 6, 12, 18].forEach((h) => {
       const angle = ((h / 24) * 2 * Math.PI) - Math.PI / 2;
       const labelR = outerR + 14;
@@ -67,7 +64,6 @@ function CircadianClock({ hourly }) {
       ctx.fillText(`${h}:00`, x, y);
     });
 
-    // Centre text
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.font = `bold ${Math.round(outerR * 0.22)}px sans-serif`;
@@ -90,7 +86,7 @@ function CircadianClock({ hourly }) {
   );
 }
 
-/* ─── Artist Year Bar ─────────────────────────────────────────────────── */
+/* ─── Artist Year View ─────────────────────────────────────── */
 function ArtistYearView({ spotify }) {
   const years = getSpotifyYears(spotify);
   const [yr, setYr] = useState(years[years.length - 1] ?? '2024');
@@ -100,12 +96,13 @@ function ArtistYearView({ spotify }) {
   return (
     <div className="br-artist-view">
       <div className="br-artist-view__controls">
-        <span className="br-section-label">Top Artists</span>
+        <span className="br-artifact-label">MUSIC LOG</span>
         <select
           className="br-select"
           value={yr}
           onChange={(e) => setYr(e.target.value)}
           aria-label="Select year"
+          id="artist-year-select"
         >
           {years.map((y) => <option key={y} value={y}>{y}</option>)}
         </select>
@@ -129,10 +126,9 @@ function ArtistYearView({ spotify }) {
   );
 }
 
-/* ─── Payment Mode Timeline ───────────────────────────────────────────── */
+/* ─── Payment Mode Timeline ────────────────────────────────── */
 function PaymentModeLine({ modes }) {
   const years = Object.keys(modes).sort();
-  // Collect all unique modes
   const allModes = new Set();
   years.forEach((y) => Object.keys(modes[y]).forEach((m) => allModes.add(m)));
   const modeList = [...allModes];
@@ -143,7 +139,7 @@ function PaymentModeLine({ modes }) {
 
   return (
     <div className="br-payment">
-      <span className="br-section-label">Payment Modes · 2015–2018</span>
+      <div className="br-artifact-label">PAYMENT LEDGER · 2015–2018</div>
       <div className="br-payment__disclaimer">
         Values reflect only the actual payment modes recorded in the Household dataset.
         No additional payment methods have been inferred.
@@ -186,7 +182,7 @@ function PaymentModeLine({ modes }) {
   );
 }
 
-/* ─── India Category Pie ──────────────────────────────────────────────── */
+/* ─── India Category Chart ─────────────────────────────────── */
 function IndiaCategoryChart({ categories }) {
   const entries = Object.entries(categories).sort((a, b) => b[1] - a[1]);
   const total = entries.reduce((s, [, v]) => s + v, 0);
@@ -195,7 +191,7 @@ function IndiaCategoryChart({ categories }) {
 
   return (
     <div className="br-india">
-      <span className="br-section-label">India Transaction Categories · 2022–2024</span>
+      <div className="br-artifact-label">SPENDING BREAKDOWN · 2022–2024</div>
       <div className="br-india__donut-wrap">
         <svg viewBox="0 0 120 120" className="br-donut" aria-label="Category donut chart">
           {entries.map(([cat, val], i) => {
@@ -219,7 +215,7 @@ function IndiaCategoryChart({ categories }) {
               />
             );
           })}
-          <circle cx="60" cy="60" r="30" fill="#080f14" />
+          <circle cx="60" cy="60" r="30" fill="#0C0B0E" />
           <text x="60" y="56" textAnchor="middle" fill="white" fontSize="7" fontFamily="monospace">{fmtNum(total)}</text>
           <text x="60" y="66" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="5" fontFamily="monospace">transactions</text>
         </svg>
@@ -238,12 +234,11 @@ function IndiaCategoryChart({ categories }) {
   );
 }
 
-/* ─── Global Spotify Stats bar ────────────────────────────────────────── */
+/* ─── Global Spotify Stats ─────────────────────────────────── */
 function SpotifyGlobalStats({ spotify }) {
-  const totalMs = Object.values(spotify.years ?? {}).reduce((s, y) => s + (y.hours_played * 3_600_000), 0);
   const items = [
     { label: 'Total Streams', value: fmtNum(spotify.total_streams) },
-    { label: 'Total Listening', value: `${fmtNum(Math.round(spotify.total_hours_played))}h` },
+    { label: 'Listening Time', value: `${fmtNum(Math.round(spotify.total_hours_played))}h` },
     { label: 'Skip Rate', value: `${(spotify.overall_skip_rate * 100).toFixed(1)}%` },
     { label: 'Shuffle Rate', value: `${(spotify.overall_shuffle_rate * 100).toFixed(1)}%` },
     { label: 'Years Tracked', value: `${Object.keys(spotify.years ?? {}).length}` },
@@ -260,7 +255,30 @@ function SpotifyGlobalStats({ spotify }) {
   );
 }
 
-/* ─── Main Export ─────────────────────────────────────────────────────── */
+/* ─── Artifact Card wrapper ────────────────────────────────── */
+function ArtifactCard({ title, sub, stamp, accentColor, children, full = false }) {
+  return (
+    <div
+      className={`br-artifact-card ${full ? 'br-artifact-card--full' : ''}`}
+      style={{ '--card-accent': accentColor }}
+    >
+      <div className="br-artifact-card__header">
+        <div className="br-artifact-card__header-left">
+          <div className="br-artifact-card__title">{title}</div>
+          {sub && <div className="br-artifact-card__sub">{sub}</div>}
+        </div>
+        {stamp && (
+          <div className="br-artifact-card__stamp">{stamp}</div>
+        )}
+      </div>
+      <div className="br-artifact-card__body">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main Export ──────────────────────────────────────────── */
 export default function BehavioralRadar() {
   const [state, setState] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -280,33 +298,47 @@ export default function BehavioralRadar() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="br-loading"><span className="br-spinner" />Analysing patterns…</div>;
+  if (loading) {
+    return (
+      <div className="br-loading">
+        <span className="br-spinner" />
+        <span>Reading the archive patterns…</span>
+      </div>
+    );
+  }
   if (error) return <div className="br-error">Error: {error}</div>;
 
   const { chapters, spotify, household, india } = state;
   const hourly = getHourlyDistribution(chapters);
   const paymentModes = getPaymentModesByYear(chapters);
-  const peakHour = chapters.verified_patterns?.peak_hour ?? 5;
   const nightOwlPct = chapters.verified_patterns?.night_owl_percentage ?? 0;
   const indiaCategories = chapters.verified_patterns?.india_categories ?? {};
 
   return (
     <div className="br-root">
-      <div className="br-page-header">
-        <h2 className="br-page-title">📡 Behavioural Radar</h2>
-        <p className="br-page-sub">Patterns extracted exclusively from the verified dataset. No hypotheses — only evidence.</p>
+
+      {/* ── Archive header ── */}
+      <div className="br-archive-header">
+        <div className="br-archive-header__label">BEHAVIOURAL ARCHIVE</div>
+        <h2 className="br-archive-header__title">Patterns in the Data</h2>
+        <p className="br-archive-header__sub">
+          Extracted exclusively from the verified dataset. No hypotheses — only evidence.
+        </p>
       </div>
 
-      {/* Global Spotify stats */}
+      {/* ── Global Spotify stats ── */}
       <SpotifyGlobalStats spotify={spotify} />
 
-      {/* Two-column layout */}
+      {/* ── Artifact grid ── */}
       <div className="br-grid">
 
-        {/* Left: Circadian clock */}
-        <div className="br-card br-card--clock">
-          <h3 className="br-card__title">🦉 Circadian Listening Rhythm</h3>
-          <p className="br-card__sub">24-hour distribution across all 149,860 streams (IST)</p>
+        {/* Circadian time-card */}
+        <ArtifactCard
+          title="Circadian Listening Rhythm"
+          sub="24-hour distribution across all 149,860 streams (IST)"
+          stamp="TIME CARD"
+          accentColor="#22d3ee"
+        >
           <div className="br-clock-wrap">
             <CircadianClock hourly={hourly} />
             <div className="br-clock-facts">
@@ -316,7 +348,7 @@ export default function BehavioralRadar() {
               </div>
               <div className="br-fact">
                 <span className="br-fact__val">{nightOwlPct.toFixed(1)}%</span>
-                <span className="br-fact__label">of streams 11 PM – 5 AM</span>
+                <span className="br-fact__label">streams 11 PM – 5 AM</span>
               </div>
               <div className="br-fact">
                 <span className="br-fact__val">5:00 PM</span>
@@ -324,28 +356,39 @@ export default function BehavioralRadar() {
               </div>
             </div>
           </div>
-        </div>
+        </ArtifactCard>
 
-        {/* Right: Artist year view */}
-        <div className="br-card">
-          <h3 className="br-card__title">🎤 Artist Rankings by Year</h3>
-          <p className="br-card__sub">Top 10 artists for each year — select a year to explore</p>
+        {/* Artist year view */}
+        <ArtifactCard
+          title="Artist Rankings by Year"
+          sub="Top 10 artists — select a year to explore"
+          stamp="MUSIC LOG"
+          accentColor="#a78bfa"
+        >
           <ArtistYearView spotify={spotify} />
-        </div>
+        </ArtifactCard>
 
-        {/* Full-width: Payment modes */}
-        <div className="br-card br-card--full">
-          <h3 className="br-card__title">💳 Payment Mode Evolution (2015–2018)</h3>
-          <p className="br-card__sub">Actual payment modes from the Household ledger dataset only</p>
+        {/* Payment modes — full width */}
+        <ArtifactCard
+          title="Payment Mode Evolution"
+          sub="2015–2018 · Household ledger dataset only"
+          stamp="LEDGER"
+          accentColor="#4ade80"
+          full
+        >
           <PaymentModeLine modes={paymentModes} />
-        </div>
+        </ArtifactCard>
 
-        {/* Full-width: India categories */}
-        <div className="br-card br-card--full">
-          <h3 className="br-card__title">🛒 India Transaction Breakdown (2022–2024)</h3>
-          <p className="br-card__sub">4 verified spending categories from Augmented India dataset</p>
+        {/* India categories — full width */}
+        <ArtifactCard
+          title="India Transaction Breakdown"
+          sub="4 verified spending categories · 2022–2024"
+          stamp="SPENDING RECORD"
+          accentColor="#fb923c"
+          full
+        >
           <IndiaCategoryChart categories={indiaCategories} />
-        </div>
+        </ArtifactCard>
 
       </div>
     </div>

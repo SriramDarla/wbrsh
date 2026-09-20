@@ -1,4 +1,134 @@
-html,
-body {
+/* ==========================================================
+   Global Design System — "Your Life, In Receipts"
+   Archive-first design language.
+   
+   Color system:
+     --arch-pink   #EA9DFF   — pink accent / annotations
+     --arch-black  #0C0B0E   — near-black background
+     --arch-dark   #161418   — surface above background
+     --arch-paper  #F2EDE3   — thermal/receipt paper surface
+     --arch-ink    #1A1714   — near-black ink on paper
+     --arch-dim    rgba(242,237,227,0.45) — muted paper text
+   
+   Metaphor layers:
+     Dark world (black background) = the archive environment
+     Paper elements (cream surface) = physical artifacts within it
+     Pink = annotations, highlights, co-occurrence threads
+     Monospace = machine-printed data
+     Variable-weight sans = editorial narrative text
+========================================================== */
+
+html, body {
   margin: 0;
+  padding: 0;
 }
+
+:root {
+  /* ── Core palette ── */
+  --arch-pink:        #EA9DFF;
+  --arch-pink-dim:    rgba(234, 157, 255, 0.25);
+  --arch-pink-subtle: rgba(234, 157, 255, 0.07);
+  --arch-black:       #0C0B0E;
+  --arch-dark:        #161418;
+  --arch-dark-2:      #1E1B22;
+  --arch-surface:     #252228;
+  --arch-paper:       #F2EDE3;
+  --arch-paper-aged:  #E8E0CE;
+  --arch-paper-dark:  #DDD5C3;
+  --arch-ink:         #1A1714;
+  --arch-ink-dim:     rgba(26, 23, 20, 0.55);
+  --arch-ink-faint:   rgba(26, 23, 20, 0.28);
+
+  /* ── Text on dark ── */
+  --arch-fg:         rgba(242, 237, 227, 0.92);
+  --arch-fg-dim:     rgba(242, 237, 227, 0.45);
+  --arch-fg-faint:   rgba(242, 237, 227, 0.2);
+
+  /* ── Lines ── */
+  --arch-line:       rgba(255, 255, 255, 0.07);
+  --arch-line-soft:  rgba(255, 255, 255, 0.04);
+  --arch-line-paper: rgba(0, 0, 0, 0.1);
+  --arch-line-pink:  rgba(234, 157, 255, 0.2);
+
+  /* ── Typography ── */
+  --mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  --sans: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+
+  /* ── Spacing ── */
+  --arch-pad: clamp(1rem, 3vw, 2.5rem);
+  --arch-pad-sm: clamp(0.75rem, 2vw, 1.25rem);
+
+  /* ── Motion ── */
+  --arch-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  --arch-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Grain noise (SVG data URI) ── */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* ── Global box-sizing ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Reduced motion: disable all transitions & animations ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Utility: screen-reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Utility: paper grain overlay (add as ::after pseudo on paper elements) ── */
+.arch-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.03;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Utility: monospace labels ── */
+.arch-mono { font-family: var(--mono); }
+
+/* ── Utility: artifact stamp ── */
+.arch-stamp {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  padding: 0.15em 0.5em;
+  opacity: 0.7;
+}
+
+/* ── Utility: dashed separator (receipt style) ── */
+.arch-dash {
+  border: none;
+  border-top: 1px dashed rgba(0, 0, 0, 0.2);
+  margin: 0.75rem 0;
+}
+.arch-dash--light {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(234, 157, 255, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(234, 157, 255, 0.5); }
