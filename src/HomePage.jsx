@@ -67,6 +67,53 @@ const DATA_METRICS = [
   { metric: '500+',    label: 'Scored Co-Occurrences', detail: 'Evidence-Based Temporal Connections' },
 ];
 
+/* ── Story Loop Strip ────────────────────────────────────────── */
+const LOOP_STEPS = [
+  {
+    num: '01',
+    icon: '◈',
+    head: 'Explore Receipts',
+    body: '500 curated moments where a Spotify stream and a transaction co-occur within 1 hour.',
+  },
+  {
+    num: '02',
+    icon: '⬡',
+    head: 'Find a Connection',
+    body: 'Each pair is scored by time proximity, context, and day overlap — transparently, deterministically.',
+  },
+  {
+    num: '03',
+    icon: '◎',
+    head: 'Understand the Story',
+    body: '11.4 years of a life, reconstructed from sound and spending. Four chapters. One archive.',
+  },
+];
+
+function StoryLoopStrip() {
+  return (
+    <div className="pg-loop-strip" aria-label="How this works">
+      <div className="pg-loop-strip__label">HOW IT WORKS</div>
+      <div className="pg-loop-strip__steps">
+        {LOOP_STEPS.map((s, i) => (
+          <div key={s.num} className="pg-loop-step">
+            <div className="pg-loop-step__left">
+              <span className="pg-loop-step__num">{s.num}</span>
+              <span className="pg-loop-step__icon" aria-hidden="true">{s.icon}</span>
+            </div>
+            <div className="pg-loop-step__right">
+              <div className="pg-loop-step__head">{s.head}</div>
+              <div className="pg-loop-step__body">{s.body}</div>
+            </div>
+            {i < LOOP_STEPS.length - 1 && (
+              <span className="pg-loop-step__arrow" aria-hidden="true">→</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function MetricCycler({ metrics = DATA_METRICS, intervalMs = 3400 }) {
   const [current, setCurrent] = useState(0);
   const total = metrics.length;
@@ -259,7 +306,7 @@ const CONTENT = {
     { label: 'Co-Occurrences', href: '#connections' },
     { label: 'Behavioural Radar', href: '#patterns' },
   ],
-  cta: 'Explore 11.4 years of digital life through sound and spending.',
+  cta: 'Raw data. Real moments. Stories hidden in the archive.',
   location: 'Coverage: India (Mumbai, Bengaluru, Delhi & more)',
   coordinates: '2013–2024 · Spotify + Household + India Transact',
 };
@@ -318,7 +365,10 @@ export default function HomePage({ brand = 'Your Life, In Receipts', onReplay, o
         </div>
       </section>
 
-      {/* ── Row 2: archive card strip ── */}
+      {/* ── Row 2: story loop ── */}
+      <StoryLoopStrip />
+
+      {/* ── Row 3: archive card strip ── */}
       <ArchiveCards pages={PAGES} onNavigate={onNavigate} />
 
       {/* ── Info / dataset summary footer ── */}

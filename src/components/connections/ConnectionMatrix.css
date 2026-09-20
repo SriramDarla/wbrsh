@@ -416,6 +416,17 @@
   line-height: 1.3;
 }
 .ep__pill-icon { font-size: 0.7rem; }
+.ep__pill-text { flex: 1; }
+.ep__pill-pts {
+  font-weight: 700;
+  color: var(--arch-pink, #EA9DFF);
+  background: rgba(234,157,255,0.15);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  margin-left: 0.2rem;
+}
 .ep__disclaimer {
   font-family: var(--mono, monospace);
   font-size: 0.58rem;

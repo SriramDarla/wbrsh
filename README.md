@@ -18,6 +18,13 @@ An empirical interactive web application that visualizes **11.4 years of living*
 
 > **Temporal Boundaries:** Daily Household Transactions (2015–2018) and India Transactions (2022–2024) do not overlap temporally. They are independently cross-referenced against the continuous Spotify timeline (2013–2024).
 
+### The Core Story Loop
+
+The application centers around a three-step exploratory loop:
+1. **Explore Receipts**: Browse 500 curated, tactile thermal receipts capturing moments where music and spending intersected.
+2. **Find a Connection**: Inspect deterministic, evidence-based co-occurrence scores (up to 10 points) broken down by time proximity, mobile transit context, and shared temporal windows.
+3. **Understand the Story**: Step through 11.4 years organized into four chronological Life Chapters and the multi-dimensional Behavioural Radar.
+
 ---
 
 ## Architecture & Data Pipeline
@@ -61,7 +68,7 @@ Browser UI
 
 3. **🔗 Co-Occurrences Matrix (`#connections`)**
    - Search and filter scored intersections by artist, track, category, merchant, or city.
-   - Real-time scoring breakdown (up to 12 points) with explainable reasons (same calendar day, minute proximity, mobile transit context).
+   - Real-time scoring breakdown (up to 10 points, audited and evidence-grounded) with explainable signals (same calendar day [+2], minute proximity [+3], mobile transit context [+3], late-night window [+2], or shared entertainment [+2]).
 
 4. **📡 Behavioural Radar (`#patterns`)**
    - **24-Hour Circadian Clock**: Canvas-based visualization of listening intensity throughout the day.

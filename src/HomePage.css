@@ -186,6 +186,83 @@
   line-height: 1.35;
 }
 
+/* ── Story Loop Strip ────────────────────────────────────────── */
+.pg-loop-strip {
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.24);
+}
+.pg-loop-strip__label {
+  padding: 1.1rem var(--cell);
+  border-right: 1px solid var(--line);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.pg-loop-strip__steps {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+}
+.pg-loop-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  position: relative;
+  border-right: 1px solid var(--line);
+}
+.pg-loop-step:last-child {
+  border-right: none;
+}
+.pg-loop-step__left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+.pg-loop-step__num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--pg-dim);
+}
+.pg-loop-step__icon {
+  font-size: 1rem;
+  color: var(--accent);
+}
+.pg-loop-step__right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+.pg-loop-step__head {
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pg-fg);
+}
+.pg-loop-step__body {
+  font-size: 0.76rem;
+  color: var(--pg-dim);
+  line-height: 1.35;
+}
+.pg-loop-step__arrow {
+  color: var(--pg-dim);
+  opacity: 0.35;
+  font-size: 1rem;
+  margin-left: auto;
+  padding-left: 0.4rem;
+}
+
 /* ── Row 2: horizontal card strip ── */
 .pg-strip-row {
   min-height: max(22rem, 50svh);
@@ -436,6 +513,21 @@
   .pg-strip-row { overflow: visible; }
   .pg-strip-wrap { padding-left: var(--cell); }
   .pg-archive-card { flex-basis: clamp(12rem, 72vw, 18rem); }
+
+  .pg-loop-strip { flex-direction: column; }
+  .pg-loop-strip__label {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0.75rem var(--cell);
+  }
+  .pg-loop-strip__steps { flex-direction: column; }
+  .pg-loop-step {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0.9rem var(--cell);
+  }
+  .pg-loop-step:last-child { border-bottom: 0; }
+  .pg-loop-step__arrow { transform: rotate(90deg); margin-left: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

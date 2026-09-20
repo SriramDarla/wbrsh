@@ -31,6 +31,16 @@ function getReasonIcon(reason) {
   return '●';
 }
 
+function getReasonPoints(reason) {
+  if (reason.startsWith('Same calendar day')) return '+2';
+  if (reason.startsWith('Within') || reason.includes('minute') || reason.includes('hour')) return '+3';
+  if (reason.includes('transportation purchase') || reason.includes('Mobile Spotify stream')) return '+3';
+  if (reason.includes('late-night')) return '+2';
+  if (reason.includes('Shared digital') || reason.includes('Shared entertainment')) return '+2';
+  if (reason.includes('Monthly milestone')) return '+2';
+  return '+1';
+}
+
 /* ── Evidence Pair ───────────────────────────────────────────── */
 function EvidencePair({ conn }) {
   const { score, reasons, era, transaction: tx, spotify: sp } = conn;
@@ -109,7 +119,8 @@ function EvidencePair({ conn }) {
           {reasons.map((r, i) => (
             <span key={i} className="ep__pill">
               <span className="ep__pill-icon">{getReasonIcon(r)}</span>
-              {r}
+              <span className="ep__pill-text">{r}</span>
+              <span className="ep__pill-pts">{getReasonPoints(r)}</span>
             </span>
           ))}
         </div>
