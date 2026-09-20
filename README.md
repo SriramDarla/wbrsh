@@ -2,122 +2,190 @@
 
 An empirical interactive web application that visualizes **11.4 years of living** (July 2013 → December 2024) by connecting long-term musical listening history with daily household ledgers and multi-facet mobility records.
 
+> **Concept:** What if you could browse your own life like an archive? Not a feed. Not a dashboard. An ordered record of moments — where a Spotify stream and a transaction collided within the same hour, and left evidence.
+
 ---
 
-## Overview
+## The Problem It Solves
 
-"Your Life, In Receipts" synthesizes three real-world datasets into an itemized, interactive digital archive. Rather than assuming causation, the application identifies and scores **evidence-based temporal and contextual co-occurrences** between soundtrack moments (Spotify streams) and real-life expenses (local transit, groceries, travel, lifestyle).
+Most personal data tools chart trends. This application does something different: it asks whether disconnected digital-life records — streaming history, household ledgers, transport receipts — can be assembled into a coherent **human story**.
 
-### Key Datasets
+The answer it proposes is: **yes, through temporal co-occurrence.**
+
+When a song plays and a purchase happens within the same hour, on the same day, with matching contextual signals (a late-night transit purchase and a mobile Spotify stream), those two records become a *moment*. Five hundred of the strongest such moments are curated, scored, and displayed as physical thermal receipts.
+
+---
+
+## Datasets
 
 | Dataset | Period | Records | Description |
 |---|---|---|---|
-| **Spotify Extended Streaming History** | 2013 – 2024 | 149,860 | Millisecond-level playback timestamps, track, artist, album, and listening platform. |
-| **Daily Household Transactions** | 2015 – 2018 | 2,461 | Detailed daily financial ledger capturing Mumbai transit, groceries, utilities, cash, and banking. |
-| **Augmented India Transactions** | 2022 – 2024 | 9,417 | Multi-facet transaction records spanning travel, entertainment, fitness, retail, and digital payment modes. |
+| **Spotify Extended Streaming History** | 2013–2024 | 149,860 | Millisecond-level playback timestamps, track, artist, album, platform |
+| **Daily Household Transactions** | 2015–2018 | 2,461 | Daily financial ledger: Mumbai transit, groceries, utilities, cash, banking |
+| **Augmented India Transactions** | 2022–2024 | 9,417 | Multi-facet records: travel, entertainment, fitness, retail, digital payments |
 
-> **Temporal Boundaries:** Daily Household Transactions (2015–2018) and India Transactions (2022–2024) do not overlap temporally. They are independently cross-referenced against the continuous Spotify timeline (2013–2024).
+> **Temporal Boundaries:** The two transaction datasets do not overlap in time. They are independently scored against the continuous Spotify timeline (2013–2024). Cross-era connections are structurally impossible and explicitly enforced.
 
-### The Core Story Loop
+---
 
-The application centers around a three-step exploratory loop:
-1. **Explore Receipts**: Browse 500 curated, tactile thermal receipts capturing moments where music and spending intersected.
-2. **Find a Connection**: Inspect deterministic, evidence-based co-occurrence scores (up to 10 points) broken down by time proximity, mobile transit context, and shared temporal windows.
-3. **Understand the Story**: Step through 11.4 years organized into four chronological Life Chapters and the multi-dimensional Behavioural Radar.
+## Connection Scoring Algorithm
+
+Each co-occurrence is scored **deterministically** using verifiable temporal and contextual evidence. No machine learning, no inference, no LLMs.
+
+### Scoring Signals (max 10 points)
+
+| Signal | Points | Condition |
+|---|---|---|
+| Same calendar day | 3 | Transaction date = Spotify date |
+| Within 1 hour | 3 | Timestamps within 60 minutes |
+| Within 3 hours | 1 | Timestamps within 180 minutes |
+| Mobile listening | 1 | `platform` = Android / iOS |
+| Transportation purchase | 1 | Category = `transit` / `transport` |
+| Late-night activity | 1 | Both events 11 PM – 5 AM IST |
+| Shared entertainment context | 1 | Both are entertainment-category events |
+| Monthly milestone | 1 | First/last day of month for both |
+
+Scores are capped at 10. Only co-occurrences scoring ≥ 5 are shown. The top 500 are curated for display.
+
+**CORRELATION ≠ CAUSATION.** No causal link between any stream and any purchase is implied or claimed.
+
+---
+
+## Story Generation
+
+Four life chapters are derived from **dataset boundaries**, not from inference:
+
+| Chapter | Period | Primary Dataset | Story |
+|---|---|---|---|
+| The Formative Years | 2013–2014 | Spotify only | Early discovery, web player era |
+| The Daily Ledger | 2015–2018 | Spotify + Household | Mobile listening meets everyday spending |
+| The Pure Sound Era | 2019–2021 | Spotify only | Continuous soundtrack through shifting routines |
+| Multi-Facet Mobility | 2022–2024 | Spotify + India Transact | Modern travel, UPI, lifestyle diversification |
+
+Chapter narratives are authored from verified data facts (stream counts, spending totals, top artists, circadian distributions). No synthetic text.
 
 ---
 
 ## Architecture & Data Pipeline
 
-The application is strictly **frontend-only** in production. Python is used solely as an offline preprocessing tool and is **never required at runtime**.
+Production is **frontend-only**. Python handles offline preprocessing only — never at runtime.
 
 ```
 RAW CSV DATA
 (public/data/*.csv)
       ↓
-Offline Preprocessing (`python3 scripts/build_data_pipeline.py`)
+Offline Preprocessing
+python3 scripts/build_data_pipeline.py
       ↓
-Compact JSON Artifacts (`public/data/processed/*.json`, ~600 KB total)
+Compact JSON Artifacts
+public/data/processed/*.json  (~600 KB total)
       ↓
-React + Vite Frontend (Client-side fast rendering, zero backend required)
+React + Vite Frontend
+Client-side rendering, zero backend, zero API calls
       ↓
 Browser UI
 ```
 
+### Frontend Architecture
+
+```
+src/
+├── App.jsx                    # Hash-based router (home | #story | #receipts | ...)
+├── LoaderMarquee.jsx          # Cinematic intro sequence + persistent navigation bar
+├── HomePage.jsx               # Archive overview: hero, metric cycler, module cards
+├── pages/
+│   ├── InnerPage.jsx          # Archive folder header + lazy-loaded module shell
+│   └── pages.js               # Page manifest (id, title, subtitle, palette, icon)
+├── components/
+│   ├── timeline/StoryChapters.jsx     # Chapter spine + archive page layout
+│   ├── receipts/ThermalReceipt.jsx    # Thermal receipt explorer with search + filter
+│   ├── connections/ConnectionMatrix.jsx  # Evidence board with search + pagination
+│   └── analytics/BehavioralRadar.jsx  # Four analytical artifact cards
+└── services/dataService.js    # Fetch, cache, and format all JSON data
+```
+
 ### Preprocessed Artifacts (`public/data/processed/`)
-- `chapters.json` (4.3 KB): Chronological story eras derived from dataset boundaries, plus verified circadian and payment pattern summaries.
-- `curated_connections.json` (469 KB): Top 500 deduplicated, highest-scoring verified co-occurrences between audio streams and financial transactions.
-- `household_summary.json` (36 KB): Aggregated annual spending, income, payment modes, and categories (2015–2018).
-- `india_transact_summary.json` (50 KB): Aggregated multi-facet spending by category, city, and payment mode (2022–2024).
-- `spotify_summary.json` (50 KB): Annual stream totals, listening hours, top artist rankings, and platform distributions (2013–2024).
+- `curated_connections.json` (469 KB) — Top 500 scored co-occurrences
+- `spotify_summary.json` (50 KB) — Annual stream totals, top artists, circadian distribution
+- `india_transact_summary.json` (50 KB) — Category, city, payment mode analysis (2022–2024)
+- `household_summary.json` (36 KB) — Spending, income, payment modes (2015–2018)
+- `chapters.json` (4.3 KB) — Chapter metadata, verified patterns, data highlights
 
 ---
 
-## Core Features & Experience Modules
+## Experience Modules
 
-1. **📖 Life Chapters (`#story`)**
-   - Four distinct eras grounded in verified dataset coverage:
-     - *Act I: The Formative Playlist (2013–2014)* — Early Spotify web player discovery.
-     - *Act II: The Daily Ledger & Transactions (2015–2018)* — Overlap between transportation purchases, household expenses, and mobile Spotify sessions on the same days.
-     - *Act III: The Pure Sound Interlude (2019–2021)* — Three-year continuous soundtrack during shifting global routines.
-     - *Act IV: Multi-Facet Mobility (2022–2024)* — Modern travel, entertainment, fitness transactions, and platform diversification.
+### 1. Life Chapters (`#story`)
+Four archive pages, each corresponding to a data-bounded era. Left spine navigation, chapter-specific accent colors, artist music slips, and a verified circadian discovery note pinned across all chapters.
 
-2. **🧾 Receipt Printer (`#receipts`)**
-   - Renders 500 physical-style thermal receipts itemizing temporal intersections of songs and purchases.
-   - Includes printable receipt formatting, evidence-based score badges, and era filtering.
+### 2. Receipt Printer (`#receipts`)
+500 authentic thermal receipts — cream paper on black, monospace typography, torn edges, barcode. Each receipt is a verified co-occurrence. Features:
+- Full-text search (track, artist, merchant, category, city)
+- Era filter (All / 2015–2018 / 2022–2024)
+- Keyboard navigation (← → arrow keys)
+- Random receipt
+- Physical print output
 
-3. **🔗 Co-Occurrences Matrix (`#connections`)**
-   - Search and filter scored intersections by artist, track, category, merchant, or city.
-   - Real-time scoring breakdown (up to 10 points, audited and evidence-grounded) with explainable signals (same calendar day [+2], minute proximity [+3], mobile transit context [+3], late-night window [+2], or shared entertainment [+2]).
+### 3. Co-Occurrences (`#connections`)
+Evidence board of 500 scored connection pairs. Each pair shows two physical artifacts side by side — a dark music ticket and a cream receipt — joined by a pink evidence thread and a score seal. Features:
+- Live search across all fields
+- Era filter
+- Paginated (8 per page)
+- Score scale legend (Moderate / Strong / Maximum)
 
-4. **📡 Behavioural Radar (`#patterns`)**
-   - **24-Hour Circadian Clock**: Canvas-based visualization of listening intensity throughout the day.
-   - **Top Artists by Year**: Interactive year selector showing listening evolution across 11.4 years.
-   - **Payment Mode Evolution**: Historical transition across Cash, Banking, and modern payment methods.
-   - **Lifestyle Spending Breakdown**: Proportional analysis of modern transactions across categories and cities.
+### 4. Behavioural Radar (`#patterns`)
+Four analytical artifact cards, each answering a single question:
+- *When did you listen?* — 24-hour canvas circadian clock
+- *Who defined each year?* — Top artists by year selector
+- *How did you pay?* — Payment mode evolution (Cash → Banking → Digital)
+- *Where did the money go?* — India transaction category breakdown
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- npm (v9+)
-- Python 3 (only needed if regenerating the data artifacts from raw CSVs)
+- Node.js v18+
+- npm v9+
+- Python 3 (optional — only for regenerating data artifacts)
 
-### Installation
+### Installation & Run
 
 ```bash
-# 1. Clone repository
 git clone https://github.com/SriramDarla/wbrsh.git
 cd wbrsh
-
-# 2. Install dependencies
 npm install
-```
-
-### Running Locally
-
-```bash
-# Start local development server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open [http://localhost:5173](http://localhost:5173).
 
-### Building for Production
+### Production Build
 
 ```bash
 npm run build
+# Output in dist/ — fully static, deployable to any CDN
 ```
 
-The output bundle in `dist/` is completely static and can be deployed to any static web host (Vercel, Cloudflare Pages, GitHub Pages, Netlify).
-
-### Re-running Preprocessing (Optional)
-
-If the raw CSV files are modified, rebuild the JSON artifacts with:
+### Regenerate Data Pipeline (Optional)
 
 ```bash
 npm run pipeline
 # or: python3 scripts/build_data_pipeline.py
 ```
+
+Only needed if the raw CSV source files change.
+
+---
+
+## Design Philosophy
+
+The application is built around a single metaphor: **a personal archive, not a dashboard.**
+
+- Dark world (black/charcoal) = the archive environment
+- Paper elements (cream/warm) = physical artifacts within it
+- Pink (#EA9DFF) = annotation threads, connection evidence, highlights
+- IBM Plex Mono = machine-printed data, receipts, labels
+- Bricolage Grotesque = editorial narrative, headings
+
+Interaction is progressive: receipts are browsed one at a time, connections are paginated, analytics are presented as discrete artifact cards. The experience rewards exploration over overview.

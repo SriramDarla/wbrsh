@@ -67,53 +67,6 @@ const DATA_METRICS = [
   { metric: '500+',    label: 'Scored Co-Occurrences', detail: 'Evidence-Based Temporal Connections' },
 ];
 
-/* ── Story Loop Strip ────────────────────────────────────────── */
-const LOOP_STEPS = [
-  {
-    num: '01',
-    icon: '◈',
-    head: 'Explore Receipts',
-    body: '500 curated moments where a Spotify stream and a transaction co-occur within 1 hour.',
-  },
-  {
-    num: '02',
-    icon: '⬡',
-    head: 'Find a Connection',
-    body: 'Each pair is scored by time proximity, context, and day overlap — transparently, deterministically.',
-  },
-  {
-    num: '03',
-    icon: '◎',
-    head: 'Understand the Story',
-    body: '11.4 years of a life, reconstructed from sound and spending. Four chapters. One archive.',
-  },
-];
-
-function StoryLoopStrip() {
-  return (
-    <div className="pg-loop-strip" aria-label="How this works">
-      <div className="pg-loop-strip__label">HOW IT WORKS</div>
-      <div className="pg-loop-strip__steps">
-        {LOOP_STEPS.map((s, i) => (
-          <div key={s.num} className="pg-loop-step">
-            <div className="pg-loop-step__left">
-              <span className="pg-loop-step__num">{s.num}</span>
-              <span className="pg-loop-step__icon" aria-hidden="true">{s.icon}</span>
-            </div>
-            <div className="pg-loop-step__right">
-              <div className="pg-loop-step__head">{s.head}</div>
-              <div className="pg-loop-step__body">{s.body}</div>
-            </div>
-            {i < LOOP_STEPS.length - 1 && (
-              <span className="pg-loop-step__arrow" aria-hidden="true">→</span>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function MetricCycler({ metrics = DATA_METRICS, intervalMs = 3400 }) {
   const [current, setCurrent] = useState(0);
   const total = metrics.length;
@@ -125,18 +78,33 @@ function MetricCycler({ metrics = DATA_METRICS, intervalMs = 3400 }) {
   }, [total, intervalMs]);
 
   return (
-    <div className="pg-cycler" aria-label="Dataset highlights" aria-live="off">
+    <div className="pg-cycler" aria-label="Archival specimen highlights" aria-live="off">
       {metrics.map((m, i) => (
         <div
           key={i}
           className={`pg-cycler__slide${i === current ? ' is-active' : ''}`}
           aria-hidden={i !== current}
         >
-          <div className="pg-cycler__metric-card">
-            <span className="pg-cycler__metric-tag">DATASET METRIC {String(i + 1).padStart(2, '0')}</span>
-            <div className="pg-cycler__metric-val">{m.metric}</div>
-            <div className="pg-cycler__metric-label">{m.label}</div>
-            <div className="pg-cycler__metric-detail">{m.detail}</div>
+          <div className="pg-cycler__specimen">
+            <div className="pg-cycler__specimen-top">
+              <span className="pg-cycler__specimen-tag">// SPECIMEN [{String(i + 1).padStart(2, '0')}/04]</span>
+              <span className="pg-cycler__specimen-plus" aria-hidden="true">+</span>
+            </div>
+            <div className="pg-cycler__specimen-val">{m.metric}</div>
+            <div className="pg-cycler__specimen-label">{m.label}</div>
+            <div className="pg-cycler__specimen-detail">{m.detail}</div>
+            <div className="pg-cycler__specimen-foot">
+              <div className="pg-cycler__progress">
+                {metrics.map((_, dotI) => (
+                  <span
+                    key={dotI}
+                    className={`pg-cycler__tick ${dotI === current ? 'is-active' : ''}`}
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+              <span className="pg-cycler__specimen-catalog">CATALOG 2013–2024</span>
+            </div>
           </div>
         </div>
       ))}
@@ -152,10 +120,16 @@ const ARCHIVE_ICONS = {
   patterns: '◉',
 };
 const ARCHIVE_LABELS = {
-  story: 'ARCHIVE FILE · CHAPTERS',
-  receipts: 'ARCHIVE FILE · RECEIPTS',
-  connections: 'ARCHIVE FILE · EVIDENCE',
-  patterns: 'ARCHIVE FILE · PATTERNS',
+  story: 'FOLIO · CHAPTERS',
+  receipts: 'ROLL · RECEIPTS',
+  connections: 'DOSSIER · EVIDENCE',
+  patterns: 'TELEMETRY · PATTERNS',
+};
+const ARTIFACT_STAMPS = {
+  story: 'VOL. I–IV',
+  receipts: '#001–500',
+  connections: 'VERIFIED',
+  patterns: '24H MATRIX',
 };
 
 function ArchiveCards({ pages, onNavigate }) {
@@ -253,7 +227,7 @@ function ArchiveCards({ pages, onNavigate }) {
             id={`card-${p.id}`}
             type="button"
             role="listitem"
-            className={`pg-archive-card ${i === active ? 'is-active' : ''}`}
+            className={`pg-archive-card pg-archive-card--${p.id} ${i === active ? 'is-active' : ''}`}
             style={{ '--card-accent': p.palette[1] }}
             onClick={() => onNavigate(p.id)}
             aria-label={`${p.title} — ${p.subtitle}`}
@@ -264,18 +238,27 @@ function ArchiveCards({ pages, onNavigate }) {
               <span className="pg-archive-card__index">{String(i + 1).padStart(2, '0')}</span>
             </div>
 
+            {/* Subtle artifact watermark / background pattern */}
+            <div className="pg-archive-card__texture" aria-hidden="true" />
+
             {/* Main icon + title */}
             <div className="pg-archive-card__center">
-              <span className="pg-archive-card__glyph" aria-hidden="true">
-                {ARCHIVE_ICONS[p.id] ?? p.icon}
-              </span>
+              <div className="pg-archive-card__glyph-row">
+                <span className="pg-archive-card__glyph" aria-hidden="true">
+                  {ARCHIVE_ICONS[p.id] ?? p.icon}
+                </span>
+                <span className="pg-archive-card__stamp">{ARTIFACT_STAMPS[p.id]}</span>
+              </div>
               <span className="pg-archive-card__title">{p.title}</span>
               <span className="pg-archive-card__sub">{p.subtitle}</span>
             </div>
 
-            {/* Footer with open arrow */}
+            {/* Footer with tactile inspect tab */}
             <div className="pg-archive-card__foot">
-              <span className="pg-archive-card__open">OPEN →</span>
+              <span className="pg-archive-card__open">
+                <span className="pg-archive-card__open-text">INSPECT</span>
+                <span className="pg-archive-card__open-arr" aria-hidden="true">→</span>
+              </span>
             </div>
           </button>
         ))}
@@ -306,7 +289,7 @@ const CONTENT = {
     { label: 'Co-Occurrences', href: '#connections' },
     { label: 'Behavioural Radar', href: '#patterns' },
   ],
-  cta: 'Raw data. Real moments. Stories hidden in the archive.',
+  cta: 'Explore 11.4 years of digital life through sound and spending.',
   location: 'Coverage: India (Mumbai, Bengaluru, Delhi & more)',
   coordinates: '2013–2024 · Spotify + Household + India Transact',
 };
@@ -348,27 +331,46 @@ export default function HomePage({ brand = 'Your Life, In Receipts', onReplay, o
         <div className="pg-cell pg-cell--main">
           <RotatingLogo />
 
-          <h1 className="pg-statement" data-reveal style={{ '--d': '.7s' }}>
-            {CONTENT.statement.map((line, i) => (
-              <span key={i} className="pg-statement__line">{line}</span>
-            ))}
-          </h1>
-          <div className="pg-cell__foot" data-reveal style={{ '--d': '.9s' }}>
-            <dl className="pg-meta">
-              <div>
-                <dt>{CONTENT.availability.label}</dt>
-                <dd>{CONTENT.availability.value}</dd>
+          <div className="pg-hero-content">
+            <header className="pg-hero-header" data-reveal style={{ '--d': '.7s' }}>
+              <div className="pg-hero-kicker">
+                <span className="pg-hero-kicker__tag">EMPIRICAL ARCHIVE</span>
+                <span className="pg-hero-kicker__dot" aria-hidden="true">·</span>
+                <span className="pg-hero-kicker__span">2013 — 2024</span>
               </div>
-            </dl>
-            <span className="pg-scroll">Explore ↓</span>
+
+              <h1 className="pg-hero-title">
+                <span className="pg-hero-title__line">YOUR LIFE,</span>
+                <span className="pg-hero-title__line pg-hero-title__line--accent">IN RECEIPTS.</span>
+              </h1>
+
+              <p className="pg-hero-concept">
+                11.4 years of sound, spending & living — visualised across 149,860 Spotify streams and 11,878 transaction receipts.
+              </p>
+            </header>
+
+            <div className="pg-cell__foot" data-reveal style={{ '--d': '.9s' }}>
+              <div className="pg-meta">
+                <span className="pg-meta__label">{CONTENT.availability.label}</span>
+                <span className="pg-meta__val">{CONTENT.availability.value}</span>
+              </div>
+              <button
+                type="button"
+                className="pg-scroll"
+                onClick={() => {
+                  document.querySelector('.pg-strip-row')?.scrollIntoView({ behavior: smooth(), block: 'start' });
+                }}
+                aria-label="Scroll to experience modules"
+              >
+                <span className="pg-scroll__label">Explore Archive</span>
+                <span className="pg-scroll__arrow" aria-hidden="true">↓</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Row 2: story loop ── */}
-      <StoryLoopStrip />
-
-      {/* ── Row 3: archive card strip ── */}
+      {/* ── Row 2: archive card strip ── */}
       <ArchiveCards pages={PAGES} onNavigate={onNavigate} />
 
       {/* ── Info / dataset summary footer ── */}

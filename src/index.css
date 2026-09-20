@@ -28,34 +28,49 @@ html, body {
   --arch-pink:        #EA9DFF;
   --arch-pink-dim:    rgba(234, 157, 255, 0.25);
   --arch-pink-subtle: rgba(234, 157, 255, 0.07);
-  --arch-black:       #0C0B0E;
-  --arch-dark:        #161418;
-  --arch-dark-2:      #1E1B22;
-  --arch-surface:     #252228;
-  --arch-paper:       #F2EDE3;
-  --arch-paper-aged:  #E8E0CE;
-  --arch-paper-dark:  #DDD5C3;
-  --arch-ink:         #1A1714;
-  --arch-ink-dim:     rgba(26, 23, 20, 0.55);
-  --arch-ink-faint:   rgba(26, 23, 20, 0.28);
+  --arch-black:       #0A090C;
+  --arch-dark:        #131216;
+  --arch-dark-2:      #19181E;
+  --arch-surface:     #211F27;
+  --arch-paper:       #F5F0E6;
+  --arch-paper-aged:  #ECE4D2;
+  --arch-paper-dark:  #DFD7C4;
+  --arch-ink:         #151311;
+  --arch-ink-dim:     rgba(21, 19, 17, 0.65);
+  --arch-ink-faint:   rgba(21, 19, 17, 0.35);
 
   /* ── Text on dark ── */
-  --arch-fg:         rgba(242, 237, 227, 0.92);
-  --arch-fg-dim:     rgba(242, 237, 227, 0.45);
-  --arch-fg-faint:   rgba(242, 237, 227, 0.2);
+  --arch-fg:         rgba(244, 240, 234, 0.94);
+  --arch-fg-dim:     rgba(244, 240, 234, 0.52);
+  --arch-fg-faint:   rgba(244, 240, 234, 0.24);
 
   /* ── Lines ── */
-  --arch-line:       rgba(255, 255, 255, 0.07);
+  --arch-line:       rgba(255, 255, 255, 0.08);
   --arch-line-soft:  rgba(255, 255, 255, 0.04);
-  --arch-line-paper: rgba(0, 0, 0, 0.1);
-  --arch-line-pink:  rgba(234, 157, 255, 0.2);
+  --arch-line-paper: rgba(0, 0, 0, 0.12);
+  --arch-line-pink:  rgba(234, 157, 255, 0.28);
 
-  /* ── Typography ── */
+  /* ── Typography Fonts ── */
   --mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
   --sans: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
 
+  /* ── Typographic Scale ── */
+  --type-display-xl: clamp(3rem, 7.5vw, 6.5rem);
+  --type-display:    clamp(2rem, 4.5vw, 3.8rem);
+  --type-title-lg:   clamp(1.5rem, 3vw, 2.4rem);
+  --type-title-md:   clamp(1.15rem, 2vw, 1.5rem);
+  --type-body:       clamp(0.88rem, 1.1vw, 1.02rem);
+  --type-body-sm:    0.82rem;
+  --type-label:      0.65rem;
+  --type-meta:       0.72rem;
+
+  /* ── Shadows & Depth ── */
+  --shadow-paper:      0 1px 2px rgba(0,0,0,0.12), 0 16px 44px -8px rgba(0,0,0,0.75), inset 0 0 0 1px rgba(0,0,0,0.06);
+  --shadow-card:       0 4px 16px rgba(0,0,0,0.25);
+  --shadow-card-hover: 0 16px 36px -6px rgba(0,0,0,0.55), 0 0 0 1px rgba(234, 157, 255, 0.25);
+
   /* ── Spacing ── */
-  --arch-pad: clamp(1rem, 3vw, 2.5rem);
+  --arch-pad: clamp(1.25rem, 3.5vw, 3rem);
   --arch-pad-sm: clamp(0.75rem, 2vw, 1.25rem);
 
   /* ── Motion ── */

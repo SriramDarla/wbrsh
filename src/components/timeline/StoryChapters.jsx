@@ -10,11 +10,13 @@ const CHAPTER_META = [
   { icon: '◆', period: '2022–2024', color: '#fb923c', label: 'MULTI-FACET MOBILITY' },
 ];
 
+const ROMAN_NUMS = ['I', 'II', 'III', 'IV'];
+
 /* ── Archive Chapter Spine ─────────────────────────────────── */
 function ChapterSpine({ chapters, active, onSelect }) {
   return (
     <nav className="sc-spine" role="tablist" aria-label="Life chapters">
-      <div className="sc-spine__label">ARCHIVE · LIFE CHAPTERS</div>
+      <div className="sc-spine__label">ARCHIVE FOLIOS</div>
       {chapters.map((ch, i) => {
         const meta = CHAPTER_META[i] ?? CHAPTER_META[0];
         return (
@@ -27,7 +29,7 @@ function ChapterSpine({ chapters, active, onSelect }) {
             onClick={() => onSelect(i)}
           >
             <span className="sc-spine__num" aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
+              {ROMAN_NUMS[i] ?? String(i + 1).padStart(2, '0')}
             </span>
             <span className="sc-spine__icon" aria-hidden="true">{meta.icon}</span>
             <span className="sc-spine__content">

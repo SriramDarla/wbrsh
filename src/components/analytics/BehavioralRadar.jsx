@@ -5,7 +5,6 @@ import {
   loadHouseholdSummary,
   loadIndiaTransactSummary,
   fmtNum,
-  fmtINR,
   getHourlyDistribution,
   getPaymentModesByYear,
   getSpotifyYears,
@@ -244,13 +243,19 @@ function SpotifyGlobalStats({ spotify }) {
     { label: 'Years Tracked', value: `${Object.keys(spotify.years ?? {}).length}` },
   ];
   return (
-    <div className="br-global">
-      {items.map((it) => (
-        <div key={it.label} className="br-global__item">
-          <span className="br-global__value">{it.value}</span>
-          <span className="br-global__label">{it.label}</span>
-        </div>
-      ))}
+    <div className="br-global" role="region" aria-label="Archive dataset totals">
+      <div className="br-global__header">
+        <span className="br-global__tag">// ARCHIVAL METRICS</span>
+        <span className="br-global__span">2013 — 2024 · 11.4 YEARS</span>
+      </div>
+      <div className="br-global__items">
+        {items.map((it) => (
+          <div key={it.label} className="br-global__item">
+            <span className="br-global__label">{it.label}</span>
+            <span className="br-global__value">{it.value}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

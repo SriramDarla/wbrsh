@@ -31,18 +31,9 @@ function getReasonIcon(reason) {
   return '●';
 }
 
-function getReasonPoints(reason) {
-  if (reason.startsWith('Same calendar day')) return '+2';
-  if (reason.startsWith('Within') || reason.includes('minute') || reason.includes('hour')) return '+3';
-  if (reason.includes('transportation purchase') || reason.includes('Mobile Spotify stream')) return '+3';
-  if (reason.includes('late-night')) return '+2';
-  if (reason.includes('Shared digital') || reason.includes('Shared entertainment')) return '+2';
-  if (reason.includes('Monthly milestone')) return '+2';
-  return '+1';
-}
-
 /* ── Evidence Pair ───────────────────────────────────────────── */
 function EvidencePair({ conn }) {
+  const [isRevealed, setIsRevealed] = useState(false);
   const { score, reasons, era, transaction: tx, spotify: sp } = conn;
   const sl = scoreLabel(score);
 
@@ -55,7 +46,7 @@ function EvidencePair({ conn }) {
   const spTime = sp.ts?.slice(11, 16) || '';
 
   return (
-    <article className="ep" aria-label={`Connection: ${sp.track} with ${txLabel}`}>
+    <article className={`ep ${isRevealed ? 'is-revealed' : ''}`} aria-label={`Connection: ${sp.track} with ${txLabel}`}>
       {/* ── Top meta bar ── */}
       <div className="ep__bar">
         <span className="ep__era">{era}</span>
@@ -85,11 +76,18 @@ function EvidencePair({ conn }) {
         {/* CENTER — evidence connector */}
         <div className="ep__connector" aria-hidden="true">
           <div className="ep__thread ep__thread--top" />
-          <div className="ep__score-seal" style={{ '--seal-color': sl.color }}>
+          <button
+            type="button"
+            className="ep__score-seal"
+            style={{ '--seal-color': sl.color }}
+            onClick={() => setIsRevealed((v) => !v)}
+            title={isRevealed ? 'Hide evidence' : 'Inspect evidence'}
+            aria-label={`Score ${score} out of 10. Click to inspect evidence.`}
+          >
             <span className="ep__score-num">{score}</span>
             <span className="ep__score-denom">/10</span>
             <span className="ep__score-label">{sl.label}</span>
-          </div>
+          </button>
           <div className="ep__thread ep__thread--bot" />
         </div>
 
@@ -112,22 +110,39 @@ function EvidencePair({ conn }) {
         </div>
       </div>
 
-      {/* ── Evidence reasons ── */}
-      <div className="ep__evidence">
-        <span className="ep__evidence-label">Evidence signals</span>
-        <div className="ep__evidence-pills">
-          {reasons.map((r, i) => (
-            <span key={i} className="ep__pill">
-              <span className="ep__pill-icon">{getReasonIcon(r)}</span>
-              <span className="ep__pill-text">{r}</span>
-              <span className="ep__pill-pts">{getReasonPoints(r)}</span>
-            </span>
-          ))}
-        </div>
-        <div className="ep__disclaimer">
-          Co-occurrence only · No causal relationship implied or claimed
-        </div>
+      {/* ── Evidence disclosure trigger ── */}
+      <div className="ep__foot">
+        <button
+          type="button"
+          className="ep__toggle-btn"
+          onClick={() => setIsRevealed((v) => !v)}
+          aria-expanded={isRevealed}
+        >
+          <span className="ep__toggle-label">
+            {isRevealed ? 'Hide forensic signals' : `Inspect evidence signals (${reasons.length})`}
+          </span>
+          <span className="ep__toggle-icon" aria-hidden="true">
+            {isRevealed ? '▴' : '▾'}
+          </span>
+        </button>
       </div>
+
+      {/* ── Progressive disclosure of evidence signals ── */}
+      {isRevealed && (
+        <div className="ep__evidence">
+          <div className="ep__evidence-pills">
+            {reasons.map((r, i) => (
+              <span key={i} className="ep__pill">
+                <span className="ep__pill-icon">{getReasonIcon(r)}</span>
+                {r}
+              </span>
+            ))}
+          </div>
+          <div className="ep__disclaimer">
+            Co-occurrence only · No causal relationship implied or claimed
+          </div>
+        </div>
+      )}
     </article>
   );
 }

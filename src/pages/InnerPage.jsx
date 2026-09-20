@@ -34,8 +34,16 @@ function SuspenseFallback({ accent = '#a78bfa' }) {
   );
 }
 
-export default function InnerPage({ brand = 'Your Life, In Receipts', page, onReplay, onNav }) {
+const MODULE_NAV = [
+  { id: 'story',       num: '01', label: 'Chapters',  icon: '◎' },
+  { id: 'receipts',   num: '02', label: 'Receipts',  icon: '◈' },
+  { id: 'connections',num: '03', label: 'Evidence',  icon: '⬡' },
+  { id: 'patterns',   num: '04', label: 'Patterns',  icon: '◉' },
+];
+
+export default function InnerPage({ brand = 'Your Life, In Receipts', page, onReplay, onNav, onNavigate }) {
   const rootRef = useRef(null);
+  const navFn = onNavigate || onNav;
 
   // Fade-in on scroll
   useEffect(() => {
@@ -67,6 +75,38 @@ export default function InnerPage({ brand = 'Your Life, In Receipts', page, onRe
 
   return (
     <div className="ip" ref={rootRef}>
+      {/* ── Top archive navigation index bar ── */}
+      <nav className="ip-topnav" aria-label="Archive navigation">
+        <button
+          type="button"
+          className="ip-topnav__home"
+          onClick={() => navFn?.('home')}
+          aria-label="Return to archive index"
+        >
+          ← ARCHIVE INDEX
+        </button>
+        <div className="ip-topnav__modules" role="tablist">
+          {MODULE_NAV.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              role="tab"
+              aria-selected={page.id === m.id}
+              className={`ip-topnav__tab ${page.id === m.id ? 'is-active' : ''}`}
+              onClick={() => navFn?.(m.id)}
+            >
+              <span className="ip-topnav__tab-num">{m.num}</span>
+              <span className="ip-topnav__tab-icon" aria-hidden="true">{m.icon}</span>
+              <span className="ip-topnav__tab-label">{m.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className="ip-topnav__status" aria-hidden="true">
+          <span className="ip-topnav__status-dot" />
+          <span className="ip-topnav__status-text">{folderLabel}</span>
+        </div>
+      </nav>
+
       {/* ── Archive folder tab ── */}
       <header className="ip-folder" style={{ '--pg-accent': accent }}>
         <div className="ip-folder__tab">
@@ -84,7 +124,7 @@ export default function InnerPage({ brand = 'Your Life, In Receipts', page, onRe
       {/* ── Dynamic experience ── */}
       {ExperienceComponent ? (
         <Suspense fallback={<SuspenseFallback accent={accent} />}>
-          <ExperienceComponent />
+          <ExperienceComponent onNavigate={navFn} />
         </Suspense>
       ) : (
         <section className="ip-row ip-details" data-reveal>
