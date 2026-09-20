@@ -5,22 +5,68 @@ import './HomePage.css';
 const smooth = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
-// Small diagonal arrow used on cards
-const Arrow = () => (
-  <svg viewBox="0 0 16 16" width="1em" height="1em" aria-hidden="true">
-    <path d="M3 2v7h9M9 6l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-  </svg>
-);
+/* ── Rotating circle logo ─────────────────────────────────── */
+const LOGO_TEXT = '· YOUR LIFE · IN RECEIPTS · 2013–2024 · SOUND & SPEND ';
 
-// Four data pillars highlighting verified dataset metrics
+function RotatingLogo({ text = LOGO_TEXT, size = 130 }) {
+  const cx = size / 2;
+  const cy = size / 2;
+  const outerR = size / 2;
+  const innerR = outerR * 0.50;
+  const textR = outerR * 0.72;
+  const fontSize = size * 0.11;
+  const pad = fontSize * 0.85;
+  const vbSize = size + pad * 2;
+  const circlePath = `M ${cx + pad},${cy + pad - textR} A ${textR},${textR} 0 1,1 ${cx + pad - 0.001},${cy + pad - textR}`;
+
+  return (
+    <div className="pg-logo" aria-label="Your Life, In Receipts logo" title="Your Life, In Receipts">
+      <svg
+        viewBox={`0 0 ${vbSize} ${vbSize}`}
+        width={size}
+        height={size}
+        overflow="visible"
+        aria-hidden="true"
+      >
+        <defs>
+          <mask id="pg-logo-ring-mask">
+            <circle cx={cx + pad} cy={cy + pad} r={outerR} fill="white" />
+            <circle cx={cx + pad} cy={cy + pad} r={innerR} fill="black" />
+          </mask>
+          <path id="pg-logo-circle" d={circlePath} />
+        </defs>
+        <circle
+          cx={cx + pad}
+          cy={cy + pad}
+          r={outerR}
+          fill="#EA9DFF"
+          mask="url(#pg-logo-ring-mask)"
+        />
+        <text
+          className="pg-logo__text"
+          fill="#080509"
+          fontSize={fontSize}
+          fontWeight="600"
+          letterSpacing="0.03em"
+          fontFamily="inherit"
+        >
+          <textPath href="#pg-logo-circle" startOffset="0%">
+            {text}
+          </textPath>
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+/* ── Four data pillars ─────────────────────────────────────── */
 const DATA_METRICS = [
   { metric: '149,860', label: 'Spotify Streams', detail: '11.4 Years of Listening (2013–2024)' },
-  { metric: '2,461', label: 'Household Receipts', detail: 'Daily Living Ledger & Transactions (2015–2018)' },
-  { metric: '9,417', label: 'India Transactions', detail: 'Multi-Facet Mobility & Lifestyle (2022–2024)' },
-  { metric: '500+', label: 'Scored Co-Occurrences', detail: 'Evidence-Based Temporal Connections' },
+  { metric: '2,461',   label: 'Household Receipts', detail: 'Daily Living Ledger & Transactions (2015–2018)' },
+  { metric: '9,417',   label: 'India Transactions', detail: 'Multi-Facet Mobility & Lifestyle (2022–2024)' },
+  { metric: '500+',    label: 'Scored Co-Occurrences', detail: 'Evidence-Based Temporal Connections' },
 ];
 
-/** Auto-advancing metric card cycler */
 function MetricCycler({ metrics = DATA_METRICS, intervalMs = 3400 }) {
   const [current, setCurrent] = useState(0);
   const total = metrics.length;
@@ -51,70 +97,26 @@ function MetricCycler({ metrics = DATA_METRICS, intervalMs = 3400 }) {
   );
 }
 
-/* ------ rotating circle logo ------ */
-const LOGO_TEXT = '· YOUR LIFE · IN RECEIPTS · 2013–2024 · SOUND & SPEND ';
+/* ── Archive file cards ────────────────────────────────────── */
+const ARCHIVE_ICONS = {
+  story: '◎',
+  receipts: '◈',
+  connections: '⬡',
+  patterns: '◉',
+};
+const ARCHIVE_LABELS = {
+  story: 'ARCHIVE FILE · CHAPTERS',
+  receipts: 'ARCHIVE FILE · RECEIPTS',
+  connections: 'ARCHIVE FILE · EVIDENCE',
+  patterns: 'ARCHIVE FILE · PATTERNS',
+};
 
-function RotatingLogo({ text = LOGO_TEXT, size = 130 }) {
-  const cx = size / 2;
-  const cy = size / 2;
-  const outerR = size / 2;
-  const innerR = outerR * 0.50;
-  const textR = outerR * 0.72;
-  const fontSize = size * 0.11;
-
-  const pad = fontSize * 0.85;
-  const vbSize = size + pad * 2;
-  const circlePath = `M ${cx + pad},${cy + pad - textR} A ${textR},${textR} 0 1,1 ${cx + pad - 0.001},${cy + pad - textR}`;
-
-  return (
-    <div className="pg-logo" aria-label="Your Life, In Receipts logo" title="Your Life, In Receipts">
-      <svg
-        viewBox={`0 0 ${vbSize} ${vbSize}`}
-        width={size}
-        height={size}
-        overflow="visible"
-        aria-hidden="true"
-      >
-        <defs>
-          <mask id="pg-logo-ring-mask">
-            <circle cx={cx + pad} cy={cy + pad} r={outerR} fill="white" />
-            <circle cx={cx + pad} cy={cy + pad} r={innerR} fill="black" />
-          </mask>
-          <path id="pg-logo-circle" d={circlePath} />
-        </defs>
-
-        <circle
-          cx={cx + pad}
-          cy={cy + pad}
-          r={outerR}
-          fill="#EA9DFF"
-          mask="url(#pg-logo-ring-mask)"
-        />
-
-        <text
-          className="pg-logo__text"
-          fill="#080509"
-          fontSize={fontSize}
-          fontWeight="600"
-          letterSpacing="0.03em"
-          fontFamily="inherit"
-        >
-          <textPath href="#pg-logo-circle" startOffset="0%">
-            {text}
-          </textPath>
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-function CardStrip({ pages, onNavigate }) {
+function ArchiveCards({ pages, onNavigate }) {
   const stripRef = useRef(null);
   const [active, setActive] = useState(0);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const startScroll = useRef(0);
-
   const total = pages.length;
 
   useEffect(() => {
@@ -133,10 +135,9 @@ function CardStrip({ pages, onNavigate }) {
   const scrollToCard = (idx) => {
     const strip = stripRef.current;
     if (!strip) return;
-    const card = strip.querySelectorAll('.pg-card')[idx];
+    const card = strip.querySelectorAll('.pg-archive-card')[idx];
     if (card) {
-      const cardLeft = card.offsetLeft;
-      strip.scrollTo({ left: cardLeft - parseInt(getComputedStyle(strip).paddingLeft || 0, 10), behavior: smooth() });
+      strip.scrollTo({ left: card.offsetLeft - parseInt(getComputedStyle(strip).paddingLeft || 0, 10), behavior: smooth() });
     }
   };
 
@@ -160,7 +161,8 @@ function CardStrip({ pages, onNavigate }) {
   };
 
   return (
-    <section className="pg-row pg-strip-row" aria-label="Experience Modules">
+    <section className="pg-row pg-strip-row" aria-label="Experience modules">
+      {/* Counter + arrows */}
       <div className="pg-cell pg-cell--side pg-strip-side">
         <div className="pg-strip-counter" aria-live="polite" aria-atomic="true">
           <span>{String(active + 1).padStart(2, '0')}</span>
@@ -175,9 +177,7 @@ function CardStrip({ pages, onNavigate }) {
             aria-label="Previous module"
             disabled={active === 0}
             onClick={() => scrollToCard(active - 1)}
-          >
-            ←
-          </button>
+          >←</button>
           <button
             id="strip-next"
             type="button"
@@ -185,12 +185,11 @@ function CardStrip({ pages, onNavigate }) {
             aria-label="Next module"
             disabled={active === total - 1}
             onClick={() => scrollToCard(active + 1)}
-          >
-            →
-          </button>
+          >→</button>
         </div>
       </div>
 
+      {/* Scrollable archive cards */}
       <div
         className="pg-cell pg-cell--main pg-strip-wrap"
         ref={stripRef}
@@ -207,20 +206,29 @@ function CardStrip({ pages, onNavigate }) {
             id={`card-${p.id}`}
             type="button"
             role="listitem"
-            className="pg-card"
+            className={`pg-archive-card ${i === active ? 'is-active' : ''}`}
+            style={{ '--card-accent': p.palette[1] }}
             onClick={() => onNavigate(p.id)}
-            aria-label={`${p.title} – ${p.subtitle}`}
+            aria-label={`${p.title} — ${p.subtitle}`}
           >
-            <div
-              className={`pg-card__art pg-art pg-art--${p.art}`}
-              style={{ '--c1': p.palette[0], '--c2': p.palette[1] }}
-              aria-hidden="true"
-            />
-            <div className="pg-card__body">
-              <span className="pg-card__index">{String(i + 1).padStart(2, '0')}</span>
-              <span className="pg-card__title">{p.title}</span>
-              <span className="pg-card__sub">{p.subtitle}</span>
-              <span className="pg-card__arrow" aria-hidden="true"><Arrow /></span>
+            {/* Archive file header */}
+            <div className="pg-archive-card__top">
+              <span className="pg-archive-card__file-label">{ARCHIVE_LABELS[p.id] ?? 'ARCHIVE FILE'}</span>
+              <span className="pg-archive-card__index">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+
+            {/* Main icon + title */}
+            <div className="pg-archive-card__center">
+              <span className="pg-archive-card__glyph" aria-hidden="true">
+                {ARCHIVE_ICONS[p.id] ?? p.icon}
+              </span>
+              <span className="pg-archive-card__title">{p.title}</span>
+              <span className="pg-archive-card__sub">{p.subtitle}</span>
+            </div>
+
+            {/* Footer with open arrow */}
+            <div className="pg-archive-card__foot">
+              <span className="pg-archive-card__open">OPEN →</span>
             </div>
           </button>
         ))}
@@ -229,7 +237,7 @@ function CardStrip({ pages, onNavigate }) {
   );
 }
 
-/* ------ Home Page Content & Structure ------ */
+/* ── Home page content ─────────────────────────────────────── */
 const CONTENT = {
   statement: [
     'Your Life,',
@@ -310,8 +318,8 @@ export default function HomePage({ brand = 'Your Life, In Receipts', onReplay, o
         </div>
       </section>
 
-      {/* ── Row 2: horizontal card strip ── */}
-      <CardStrip pages={PAGES} onNavigate={onNavigate} />
+      {/* ── Row 2: archive card strip ── */}
+      <ArchiveCards pages={PAGES} onNavigate={onNavigate} />
 
       {/* ── Info / dataset summary footer ── */}
       <section className="pg-info" id="info">
