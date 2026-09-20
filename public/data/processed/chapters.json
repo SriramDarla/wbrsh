@@ -17,7 +17,7 @@
     },
     {
       "id": "chapter_2",
-      "title": "The Daily Ledger & The Commute",
+      "title": "The Daily Ledger & The Daily Record",
       "period": "2015 \u2014 2018",
       "primary_dataset": "Spotify History + Daily Household Transactions",
       "streams": 50359,
@@ -27,7 +27,7 @@
       "total_income_inr": 3042397.35,
       "top_payment_mode": "Saving Bank account 1",
       "top_category": "Food",
-      "narrative": "Spanning January 2015 to September 2018, this era captures 2,461 detailed receipts totaling \u20b91,957,391 in recorded living expenses alongside 50,359 musical tracks. Commutes across local transit (trains, autos) coincide with mobile audio habits.",
+      "narrative": "Spanning January 2015 to September 2018, this era captures 2,461 detailed receipts totaling \u20b91,957,391 in recorded living expenses alongside 50,359 musical tracks. Transportation purchases (trains, autos, taxis) co-occur with mobile Spotify sessions across the same days.",
       "highlights": [
         "2,461 household ledger entries across 48 categories",
         "Top payment mode: Saving Bank account 1 (1223 records)",

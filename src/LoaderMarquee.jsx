@@ -3,10 +3,11 @@ import './LoaderMarquee.css';
 import { Navbar } from './components/index.js';
 
 const DEFAULT_ITEMS = [
-  'Creative brand studio',
-  'Create, refresh and boost',
-  'Design · Strategy · Motion',
-  'Open for new projects',
+  '149,860 Spotify Streams',
+  '2,461 Household Ledger Receipts',
+  '9,417 India Transactions',
+  '11.4 Years of Sound & Spending',
+  '500 Verified Co-Occurrences',
 ];
 
 // Phase order matters: each phase ADDS its class to the previous ones.
@@ -394,16 +395,16 @@ function Sequence({ items, brand, hint, loadMs, speed, reduced, skipIntro, onDon
  * Edit INFO_CONTENT below to populate it.
  */
 const INFO_CONTENT = {
-  tagline: 'A creative studio built at the intersection of design and technology.',
+  tagline: 'An empirical chronicle of 11.4 years of music, daily living, and mobility.',
   about:
-    'We partner with founders, brands and product teams to craft identities, digital experiences and motion work that people actually remember. Every project starts with a problem worth solving.',
+    'Synthesized from 149,860 Spotify streams (2013–2024), 2,461 daily household transactions (2015–2018), and 9,417 augmented India transactions (2022–2024). All connections are evidence-grounded temporal and contextual co-occurrences without causal assumptions.',
   links: [
-    { label: 'Instagram',  href: '#' },
-    { label: 'LinkedIn',   href: '#' },
-    { label: 'Dribbble',   href: '#' },
-    { label: 'Read.cv',    href: '#' },
+    { label: 'Life Chapters',  href: '#story' },
+    { label: 'Receipt Printer', href: '#receipts' },
+    { label: 'Co-Occurrences', href: '#connections' },
+    { label: 'Behavioural Radar', href: '#patterns' },
   ],
-  contact: 'hello@example.com',
+  note: '100% Client-Side · Offline Preprocessed JSON Artifacts',
 };
 
 function InfoPanel({ isOpen, onClose }) {
@@ -445,22 +446,22 @@ function InfoPanel({ isOpen, onClose }) {
           <div className="lm-info-panel__cols">
             {/* links */}
             <div>
-              <h3 className="lm-info-panel__heading">Connect</h3>
+              <h3 className="lm-info-panel__heading">Experience Modules</h3>
               <ul className="lm-info-panel__links">
                 {INFO_CONTENT.links.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href}>{l.label} ↗</a>
+                    <a href={l.href} onClick={onClose}>{l.label} ↗</a>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* contact */}
+            {/* architecture note */}
             <div>
-              <h3 className="lm-info-panel__heading">Contact</h3>
-              <a className="lm-info-panel__mail" href={`mailto:${INFO_CONTENT.contact}`}>
-                {INFO_CONTENT.contact}
-              </a>
+              <h3 className="lm-info-panel__heading">Architecture</h3>
+              <p className="lm-info-panel__body" style={{ margin: 0, fontSize: '0.85rem' }}>
+                {INFO_CONTENT.note}
+              </p>
             </div>
           </div>
 
@@ -483,9 +484,9 @@ function InfoPanel({ isOpen, onClose }) {
    Public component
 ================================================================ */
 export default function LoaderMarquee({
-  headline = 'Create, refresh and boost',
-  brand = 'Studio',
-  hint = 'Click anywhere',
+  headline = 'Your Life, In Receipts',
+  brand = 'Your Life, In Receipts',
+  hint = 'Click anywhere to explore',
   items = DEFAULT_ITEMS,
   loadMs = 2800,
   speed = 110,

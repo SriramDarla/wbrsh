@@ -11,12 +11,15 @@ import './ConnectionMatrix.css';
 const SCORE_REASONS_ICONS = {
   'Same calendar day': '📅',
   'Within': '⏱️',
+  'Mobile Spotify stream': '📱',
   'Mobile listening': '📱',
-  'Commute transit': '🚉',
+  'Transportation purchase': '🚉',
+  'Travel purchase': '✈️',
   'Late-night': '🌙',
-  'Shared entertainment': '🎬',
-  'Travel': '✈️',
-  'Mobile audio in transit': '📱',
+  'Shared digital entertainment': '🎬',
+  'Shared entertainment theme': '🎬',
+  'Travel purchase and music': '✈️',
+  'Transportation purchase and music': '🚉',
   'Monthly milestone': '💰',
 };
 
@@ -35,7 +38,7 @@ function ConnectionCard({ conn }) {
       {/* Score badge */}
       <div className="cm-card__score-row">
         <span className="cm-card__score" style={{ '--sl-color': sl.color }}>
-          {score}/12
+          {score}/10
         </span>
         <span className="cm-card__score-label" style={{ color: sl.color }}>{sl.label}</span>
         <span className="cm-card__era">{era}</span>
@@ -149,9 +152,9 @@ export default function ConnectionMatrix() {
 
       {/* Score legend */}
       <div className="cm-legend">
-        <div className="cm-legend__item"><span style={{ background: '#22d3ee', borderRadius: 3 }}>◼</span> 12 = Perfect (all 5 factors)</div>
-        <div className="cm-legend__item"><span style={{ color: '#a78bfa' }}>◼</span> 9–11 = Strong</div>
-        <div className="cm-legend__item"><span style={{ color: '#fbbf24' }}>◼</span> 6–8 = Moderate</div>
+        <div className="cm-legend__item"><span style={{ background: '#22d3ee', borderRadius: 3 }}>◼</span> 10 = Maximum (all 5 signals)</div>
+        <div className="cm-legend__item"><span style={{ color: '#a78bfa' }}>◼</span> 7–9 = Strong</div>
+        <div className="cm-legend__item"><span style={{ color: '#fbbf24' }}>◼</span> 5–6 = Moderate</div>
         <div className="cm-legend__item">Household ↔ India: <strong style={{ color: '#f87171' }}>0 connections (boundary enforced)</strong></div>
       </div>
 

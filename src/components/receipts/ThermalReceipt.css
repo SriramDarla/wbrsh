@@ -378,3 +378,31 @@
   background: #22d3ee;
   color: #000;
 }
+
+.tr-ctrl-btn--mobile {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .tr-stage {
+    gap: 0;
+  }
+  .tr-controls {
+    display: none;
+  }
+  .tr-ctrl-btn--mobile {
+    display: flex;
+  }
+  .tr-paper {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-paper {
+    animation: none;
+  }
+  .tr-spinner {
+    animation: none;
+  }
+}

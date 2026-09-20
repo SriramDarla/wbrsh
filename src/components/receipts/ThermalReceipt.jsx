@@ -268,8 +268,10 @@ export default function ThermalReceipt() {
       </div>
 
       <div className="tr-nav-row">
+        <button className="tr-ctrl-btn tr-ctrl-btn--mobile" onClick={prev} disabled={idx === 0} aria-label="Previous receipt">←</button>
         <span className="tr-nav-count">{idx + 1} / {filtered.length}</span>
         <button className="tr-random-btn" onClick={random}>🎲 Random Receipt</button>
+        <button className="tr-ctrl-btn tr-ctrl-btn--mobile" onClick={next} disabled={idx >= filtered.length - 1} aria-label="Next receipt">→</button>
       </div>
     </div>
   );

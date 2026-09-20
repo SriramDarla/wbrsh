@@ -314,8 +314,8 @@ for r in household_records:
     yr = r["date"][:4]
     hh_mode_by_year[yr][r["mode"]] += 1
 
-# Hypothesis 3: "Commute patterns in Household transactions"
-commute_records = [r for r in household_records if r["category"].lower() in ("transportation", "travels") or r["subcategory"].lower() in ("train", "auto", "bus", "taxi")]
+# Hypothesis 3: "Transportation purchase patterns in Household transactions"
+transport_records = [r for r in household_records if r["category"].lower() in ("transportation", "travels") or r["subcategory"].lower() in ("train", "auto", "bus", "taxi")]
 
 # Hypothesis 4: "Categories in India Transact"
 india_cat_breakdown = dict(india_categories_counter)
@@ -326,9 +326,13 @@ india_cat_breakdown = dict(india_categories_counter)
 # Rule 5 Connection Scoring System:
 #   - same day: +2
 #   - within 1 hour: +3
-#   - same location (city/place/station match in note or metadata): +3
-#   - shared category/theme: +2
-#   - repeated behavioral pattern (e.g. late night, commute, salary day): +2
+#   - transportation purchase + mobile Spotify stream (co-occurrence signal, NOT proof of commuting): +3
+#   - shared category/theme (independently supported, NOT awarded when transportation signal fires): +2
+#   - repeated behavioral pattern (e.g. late night, salary day): +2
+#
+# IMPORTANT: The transportation +3 and the shared-theme +2 are mutually exclusive when both
+# would be triggered by the same transportation category evidence. This prevents double-counting.
+# Max theoretical score = 10 (same day +2, within 1h +3, transportation+mobile +3, late-night +2)
 #
 # Rule 7: Household (2015-2018) and India Transact (2022-2024) must NOT be connected.
 # Only connect Spotify with Household (2015-2018) and Spotify with India Transact (2022-2024).
@@ -348,8 +352,8 @@ for hr in household_records:
     hr_cat_lower = hr["category"].lower()
     hr_sub_lower = hr["subcategory"].lower()
     
-    # Check theme keywords
-    is_commute_tx = hr_cat_lower == "transportation" or hr_sub_lower in ("train", "auto", "taxi", "bus")
+    # Check contextual signals from the transaction record
+    is_transport_tx = hr_cat_lower == "transportation" or hr_sub_lower in ("train", "auto", "taxi", "bus")
     is_entertainment_tx = hr_cat_lower in ("subscription", "culture") or "netflix" in hr_sub_lower or "spotify" in hr_sub_lower or "movie" in hr_sub_lower
     is_late_night_tx = hr_has_time and (hr_dt.hour >= 23 or hr_dt.hour <= 4)
     is_salary_tx = hr_cat_lower == "salary" or "salary" in hr_sub_lower or "salary" in hr_note_lower
@@ -374,20 +378,29 @@ for hr in household_records:
                 # partial proximity note
                 pass
         
-        # 3. Location relationship
-        # Household notes frequently mention places: Place 0, Place 1, Place 2, Dadar, Kurla, etc.
-        # Spotify has platform (mobile vs desktop)
-        if sp["platform"] in ("android", "iOS") and is_commute_tx:
+        # 3. Transportation purchase + mobile stream co-occurrence signal
+        # Observed: transaction category is Transportation/subcategory is train/auto/taxi/bus
+        # AND Spotify platform is Android/iOS.
+        # This is a contextual co-occurrence signal — it does NOT prove the user was commuting.
+        transport_mobile_fired = False
+        if sp["platform"] in ("android", "iOS") and is_transport_tx:
             score += 3
-            reasons.append(f"Mobile listening session ({sp['platform']}) during transit ({hr['subcategory']} - {hr['note']})")
+            reasons.append(
+                f"Mobile Spotify stream co-occurring with a transportation purchase "
+                f"({hr['subcategory']} — {hr['note']})"
+            )
+            transport_mobile_fired = True
         
         # 4. Shared category / theme
+        # Only awarded when independently supported (entertainment), NOT when the same
+        # transportation evidence already triggered the +3 signal above.
         if is_entertainment_tx:
             score += 2
             reasons.append(f"Shared digital entertainment context ({hr['category']} / {hr['subcategory']})")
-        elif is_commute_tx and sp["platform"] in ("android", "iOS"):
+        elif is_transport_tx and not transport_mobile_fired:
+            # Transportation is the theme but mobile-stream signal did NOT fire (e.g. desktop stream)
             score += 2
-            reasons.append("Commute transit and mobile music co-occurrence")
+            reasons.append("Transportation purchase and music stream on the same day")
             
         # 5. Repeated behavioral pattern
         if is_late_night_tx and (sp["hour"] >= 23 or sp["hour"] <= 4):
@@ -453,18 +466,27 @@ for ir in india_records:
             score += 3
             reasons.append(f"Within {int(diff_minutes)} minutes of transaction")
             
-        # 3. Location relationship
+        # 3. Travel purchase + mobile stream co-occurrence signal
+        # Observed: transaction category is 'travel' AND city is recorded AND platform is Android/iOS.
+        # This is a contextual co-occurrence signal — it does NOT prove the user was travelling.
+        travel_mobile_fired = False
         if ir["city"] and sp["platform"] in ("android", "iOS") and is_travel_tx:
             score += 3
-            reasons.append(f"Mobile audio in transit during travel transaction in {ir['city']}, {ir['state']}")
+            reasons.append(
+                f"Mobile Spotify stream co-occurring with a travel purchase "
+                f"in {ir['city']}, {ir['state']}"
+            )
+            travel_mobile_fired = True
             
         # 4. Shared category/theme
+        # Only awarded independently — NOT when the same travel evidence already triggered +3 above.
         if is_entertainment_tx:
             score += 2
             reasons.append(f"Shared entertainment theme ({ir['category']}: {ir['merchant']})")
-        elif is_travel_tx:
+        elif is_travel_tx and not travel_mobile_fired:
+            # Travel is the theme but mobile-stream signal did NOT fire (e.g. no city or desktop)
             score += 2
-            reasons.append("Travel & mobile music co-occurrence")
+            reasons.append("Travel purchase and music stream on the same day")
             
         # 5. Repeated behavioral pattern
         if is_late_night_tx and (sp["hour"] >= 23 or sp["hour"] <= 4):
@@ -518,7 +540,7 @@ for conn in scored_connections:
 # -------------------------------------------------------------
 # Chapters emerge directly from data boundaries:
 # Chapter 1: 2013-2014 - "The Formative Years" (Spotify web player discovery, 1,000s of tracks, early streaming)
-# Chapter 2: 2015-2018 - "The Daily Ledger" (Household transactions overlap: salary, daily Mumbai commute, groceries & Spotify)
+# Chapter 2: 2015-2018 - "The Daily Ledger" (Household transactions overlap: salary, transportation purchases, groceries & Spotify)
 # Chapter 3: 2019-2021 - "The Sound of Resilience" (Spotify solo era: lockdown listening, platform shifts to desktop/mobile)
 # Chapter 4: 2022-2024 - "The Modern Horizon" (India Transact overlap: travel, fitness, multi-facet digital payments & peak music)
 
@@ -549,7 +571,7 @@ chapters = [
     },
     {
         "id": "chapter_2",
-        "title": "The Daily Ledger & The Commute",
+        "title": "The Daily Ledger & The Daily Record",
         "period": "2015 — 2018",
         "primary_dataset": "Spotify History + Daily Household Transactions",
         "streams": ch2_streams,
@@ -559,7 +581,7 @@ chapters = [
         "total_income_inr": round(ch2_hh_income, 2),
         "top_payment_mode": hh_modes_counter.most_common(1)[0][0],
         "top_category": hh_categories_counter.most_common(1)[0][0],
-        "narrative": f"Spanning January 2015 to September 2018, this era captures 2,461 detailed receipts totaling ₹{ch2_hh_spend:,.0f} in recorded living expenses alongside {ch2_streams:,} musical tracks. Commutes across local transit (trains, autos) coincide with mobile audio habits.",
+        "narrative": f"Spanning January 2015 to September 2018, this era captures 2,461 detailed receipts totaling ₹{ch2_hh_spend:,.0f} in recorded living expenses alongside {ch2_streams:,} musical tracks. Transportation purchases (trains, autos, taxis) co-occur with mobile Spotify sessions across the same days.",
         "highlights": [
             f"2,461 household ledger entries across 48 categories",
             f"Top payment mode: {hh_modes_counter.most_common(1)[0][0]} ({hh_modes_counter.most_common(1)[0][1]} records)",

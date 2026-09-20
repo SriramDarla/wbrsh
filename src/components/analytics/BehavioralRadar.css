@@ -356,3 +356,7 @@
   .br-global { justify-content: stretch; }
   .br-india__donut-wrap { flex-direction: column; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .br-spinner { animation: none; }
+}

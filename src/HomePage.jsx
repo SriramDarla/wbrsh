@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { PAGES } from './pages/pages.js';
-import './StudioPage.css';
+import './HomePage.css';
 
 const smooth = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-
-const noJump = (href) => (href === '#' ? (e) => e.preventDefault() : undefined);
 
 // Small diagonal arrow used on cards
 const Arrow = () => (
@@ -14,20 +12,18 @@ const Arrow = () => (
   </svg>
 );
 
-
-// ── Placeholder images: swap src values for real URLs whenever you’re ready.
-// Add or remove objects freely — the cycler adapts automatically.
-const GALLERY = [
-  { src: '', label: 'Image 01' },
-  { src: '', label: 'Image 02' },
-  { src: '', label: 'Image 03' },
-  { src: '', label: 'Image 04' },
+// Four data pillars highlighting verified dataset metrics
+const DATA_METRICS = [
+  { metric: '149,860', label: 'Spotify Streams', detail: '11.4 Years of Listening (2013–2024)' },
+  { metric: '2,461', label: 'Household Receipts', detail: 'Daily Living Ledger & Transactions (2015–2018)' },
+  { metric: '9,417', label: 'India Transactions', detail: 'Multi-Facet Mobility & Lifestyle (2022–2024)' },
+  { metric: '500+', label: 'Scored Co-Occurrences', detail: 'Evidence-Based Temporal Connections' },
 ];
 
-/** Auto-advancing image cycler — fills the top-left grid cell completely. */
-function ImageCycler({ images = GALLERY, intervalMs = 3200 }) {
+/** Auto-advancing metric card cycler */
+function MetricCycler({ metrics = DATA_METRICS, intervalMs = 3400 }) {
   const [current, setCurrent] = useState(0);
-  const total = images.length;
+  const total = metrics.length;
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -36,20 +32,19 @@ function ImageCycler({ images = GALLERY, intervalMs = 3200 }) {
   }, [total, intervalMs]);
 
   return (
-    <div className="pg-cycler" aria-label="Image gallery" aria-live="off">
-      {images.map((img, i) => (
+    <div className="pg-cycler" aria-label="Dataset highlights" aria-live="off">
+      {metrics.map((m, i) => (
         <div
           key={i}
           className={`pg-cycler__slide${i === current ? ' is-active' : ''}`}
           aria-hidden={i !== current}
         >
-          {img.src ? (
-            <img src={img.src} alt={img.label} />
-          ) : (
-            <div className="pg-cycler__ph">
-              <span className="pg-cycler__ph-num">{String(i + 1).padStart(2, '0')}</span>
-            </div>
-          )}
+          <div className="pg-cycler__metric-card">
+            <span className="pg-cycler__metric-tag">DATASET METRIC {String(i + 1).padStart(2, '0')}</span>
+            <div className="pg-cycler__metric-val">{m.metric}</div>
+            <div className="pg-cycler__metric-label">{m.label}</div>
+            <div className="pg-cycler__metric-detail">{m.detail}</div>
+          </div>
         </div>
       ))}
     </div>
@@ -57,25 +52,22 @@ function ImageCycler({ images = GALLERY, intervalMs = 3200 }) {
 }
 
 /* ------ rotating circle logo ------ */
-const LOGO_TEXT = '\u00b7 Studio \u00b7 Studio \u00b7 Studio \u00b7 Studio ';
+const LOGO_TEXT = '· YOUR LIFE · IN RECEIPTS · 2013–2024 · SOUND & SPEND ';
 
 function RotatingLogo({ text = LOGO_TEXT, size = 130 }) {
   const cx = size / 2;
   const cy = size / 2;
   const outerR = size / 2;
-  const innerR = outerR * 0.50;   // hollow cutout — 50% of outer radius
-  const textR  = outerR * 0.72;   // midpoint of the ring (between innerR & outerR)
-  const fontSize = size * 0.125;
+  const innerR = outerR * 0.50;
+  const textR = outerR * 0.72;
+  const fontSize = size * 0.11;
 
-  // Extra space around the viewBox so ascenders at the top don't clip
   const pad = fontSize * 0.85;
   const vbSize = size + pad * 2;
-
-  // Full-circle path (never-closing arc trick keeps textPath continuous)
   const circlePath = `M ${cx + pad},${cy + pad - textR} A ${textR},${textR} 0 1,1 ${cx + pad - 0.001},${cy + pad - textR}`;
 
   return (
-    <div className="pg-logo" aria-label="Studio logo" title="Studio">
+    <div className="pg-logo" aria-label="Your Life, In Receipts logo" title="Your Life, In Receipts">
       <svg
         viewBox={`0 0 ${vbSize} ${vbSize}`}
         width={size}
@@ -84,23 +76,21 @@ function RotatingLogo({ text = LOGO_TEXT, size = 130 }) {
         aria-hidden="true"
       >
         <defs>
-          {/* mask: full disk minus inner disk = pink ring */}
           <mask id="pg-logo-ring-mask">
             <circle cx={cx + pad} cy={cy + pad} r={outerR} fill="white" />
             <circle cx={cx + pad} cy={cy + pad} r={innerR} fill="black" />
           </mask>
-          {/* path the text follows */}
           <path id="pg-logo-circle" d={circlePath} />
         </defs>
 
-        {/* Pink ring */}
         <circle
-          cx={cx + pad} cy={cy + pad} r={outerR}
+          cx={cx + pad}
+          cy={cy + pad}
+          r={outerR}
           fill="#EA9DFF"
           mask="url(#pg-logo-ring-mask)"
         />
 
-        {/* Text around the ring */}
         <text
           className="pg-logo__text"
           fill="#080509"
@@ -118,24 +108,20 @@ function RotatingLogo({ text = LOGO_TEXT, size = 130 }) {
   );
 }
 
-
-
 function CardStrip({ pages, onNavigate }) {
   const stripRef = useRef(null);
-  const [active, setActive] = useState(0); // which card is "in view" (0-indexed)
+  const [active, setActive] = useState(0);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const startScroll = useRef(0);
 
   const total = pages.length;
 
-  // Sync the active counter as the strip scrolls
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip) return;
     const update = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = strip;
-      // Each card is roughly equal width
+      const { scrollLeft, scrollWidth } = strip;
       const cardWidth = scrollWidth / total;
       const idx = Math.round(scrollLeft / cardWidth);
       setActive(Math.min(Math.max(idx, 0), total - 1));
@@ -154,7 +140,6 @@ function CardStrip({ pages, onNavigate }) {
     }
   };
 
-  // Drag-to-scroll
   const onMouseDown = (e) => {
     isDragging.current = true;
     startX.current = e.pageX;
@@ -175,8 +160,7 @@ function CardStrip({ pages, onNavigate }) {
   };
 
   return (
-    <section className="pg-row pg-strip-row" aria-label="Pages">
-      {/* ---- side cell: counter + prev/next ---- */}
+    <section className="pg-row pg-strip-row" aria-label="Experience Modules">
       <div className="pg-cell pg-cell--side pg-strip-side">
         <div className="pg-strip-counter" aria-live="polite" aria-atomic="true">
           <span>{String(active + 1).padStart(2, '0')}</span>
@@ -188,7 +172,7 @@ function CardStrip({ pages, onNavigate }) {
             id="strip-prev"
             type="button"
             className="pg-arrow-btn"
-            aria-label="Previous"
+            aria-label="Previous module"
             disabled={active === 0}
             onClick={() => scrollToCard(active - 1)}
           >
@@ -198,7 +182,7 @@ function CardStrip({ pages, onNavigate }) {
             id="strip-next"
             type="button"
             className="pg-arrow-btn"
-            aria-label="Next"
+            aria-label="Next module"
             disabled={active === total - 1}
             onClick={() => scrollToCard(active + 1)}
           >
@@ -207,7 +191,6 @@ function CardStrip({ pages, onNavigate }) {
         </div>
       </div>
 
-      {/* ---- main cell: the scrollable strip ---- */}
       <div
         className="pg-cell pg-cell--main pg-strip-wrap"
         ref={stripRef}
@@ -228,13 +211,11 @@ function CardStrip({ pages, onNavigate }) {
             onClick={() => onNavigate(p.id)}
             aria-label={`${p.title} – ${p.subtitle}`}
           >
-            {/* artwork */}
             <div
               className={`pg-card__art pg-art pg-art--${p.art}`}
               style={{ '--c1': p.palette[0], '--c2': p.palette[1] }}
               aria-hidden="true"
             />
-            {/* meta */}
             <div className="pg-card__body">
               <span className="pg-card__index">{String(i + 1).padStart(2, '0')}</span>
               <span className="pg-card__title">{p.title}</span>
@@ -248,9 +229,8 @@ function CardStrip({ pages, onNavigate }) {
   );
 }
 
-/* ------ main home page ------ */
+/* ------ Home Page Content & Structure ------ */
 const CONTENT = {
-  portrait: '',
   statement: [
     'Your Life,',
     'In Receipts.',
@@ -258,19 +238,25 @@ const CONTENT = {
     'spending &',
     'living — visualised.',
   ],
-  availability: { label: 'Dataset span', value: 'July 2013 → December 2024' },
-  services: ['149,860 Spotify streams', '2,461 household receipts', '9,417 transactions', '500+ verified co-occurrences'],
-  socials: [
-    { label: 'Life Chapters', href: '#story' },
-    { label: 'Co-Occurrences', href: '#connections' },
+  availability: { label: 'Temporal span', value: 'July 2013 → December 2024' },
+  metrics: [
+    '149,860 Spotify streams across 11.4 yrs',
+    '2,461 daily household transactions',
+    '9,417 multi-facet India transactions',
+    '500 curated temporal co-occurrences',
   ],
-  cta: 'Explore 11.4 years of a digital life.',
-  email: '',
-  location: 'Data spans India',
-  coordinates: '2013–2024 · Spotify + Finance',
+  exploreLinks: [
+    { label: 'Life Chapters', href: '#story' },
+    { label: 'Receipt Printer', href: '#receipts' },
+    { label: 'Co-Occurrences', href: '#connections' },
+    { label: 'Behavioural Radar', href: '#patterns' },
+  ],
+  cta: 'Explore 11.4 years of digital life through sound and spending.',
+  location: 'Coverage: India (Mumbai, Bengaluru, Delhi & more)',
+  coordinates: '2013–2024 · Spotify + Household + India Transact',
 };
 
-export default function StudioPage({ brand = 'Studio', onReplay, onNavigate }) {
+export default function HomePage({ brand = 'Your Life, In Receipts', onReplay, onNavigate }) {
   const rootRef = useRef(null);
 
   useEffect(() => {
@@ -300,15 +286,13 @@ export default function StudioPage({ brand = 'Studio', onReplay, onNavigate }) {
       <section className="pg-row pg-intro">
         <div className="pg-cell pg-cell--side">
           <div className="pg-cycler-wrap" data-reveal style={{ '--d': '.6s' }}>
-            <ImageCycler />
+            <MetricCycler />
           </div>
         </div>
 
         <div className="pg-cell pg-cell--main">
-          {/* rotating logo — top-right corner */}
           <RotatingLogo />
 
-          {/* statement — pushed below the logo */}
           <h1 className="pg-statement" data-reveal style={{ '--d': '.7s' }}>
             {CONTENT.statement.map((line, i) => (
               <span key={i} className="pg-statement__line">{line}</span>
@@ -329,7 +313,7 @@ export default function StudioPage({ brand = 'Studio', onReplay, onNavigate }) {
       {/* ── Row 2: horizontal card strip ── */}
       <CardStrip pages={PAGES} onNavigate={onNavigate} />
 
-      {/* ── Info / contact ── */}
+      {/* ── Info / dataset summary footer ── */}
       <section className="pg-info" id="info">
         <div>
           <h2 className="pg-cta" data-reveal>
@@ -340,24 +324,24 @@ export default function StudioPage({ brand = 'Studio', onReplay, onNavigate }) {
         <div>
           <div className="pg-cols" data-reveal>
             <div>
-              <h3>Dataset coverage</h3>
+              <h3>Dataset Coverage</h3>
               <ul>
                 <li>{CONTENT.location}</li>
                 <li>{CONTENT.coordinates}</li>
               </ul>
             </div>
             <div>
-              <h3>Data points</h3>
+              <h3>Empirical Records</h3>
               <ul>
-                {CONTENT.services.map((s) => (
+                {CONTENT.metrics.map((s) => (
                   <li key={s}>{s}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3>Explore</h3>
+              <h3>Experience Modules</h3>
               <ul>
-                {CONTENT.socials.map((s) => (
+                {CONTENT.exploreLinks.map((s) => (
                   <li key={s.label}>
                     <a href={s.href}>{s.label}</a>
                   </li>
@@ -367,7 +351,7 @@ export default function StudioPage({ brand = 'Studio', onReplay, onNavigate }) {
           </div>
 
           <div className="pg-base">
-            <span>© {new Date().getFullYear()} {brand} · Your Life, In Receipts</span>
+            <span>© {new Date().getFullYear()} {brand} · An Empirical Data Experience</span>
             <span className="pg-base__actions">
               {onReplay && (
                 <button type="button" className="pg-textbtn" onClick={onReplay}>

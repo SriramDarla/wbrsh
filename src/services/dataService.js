@@ -146,10 +146,10 @@ export function getTopArtists(spotifyData, year, n = 10) {
   return (spotifyData?.years?.[year]?.top_artists ?? []).slice(0, n);
 }
 
-/** Score label from numeric score */
+/** Score label from numeric score (max theoretical score is 10 after double-count fix) */
 export function scoreLabel(score) {
-  if (score >= 12) return { label: 'Perfect', color: '#22d3ee' };
-  if (score >= 9) return { label: 'Strong', color: '#a78bfa' };
-  if (score >= 6) return { label: 'Moderate', color: '#fbbf24' };
+  if (score >= 10) return { label: 'Maximum', color: '#22d3ee' };
+  if (score >= 7) return { label: 'Strong', color: '#a78bfa' };
+  if (score >= 5) return { label: 'Moderate', color: '#fbbf24' };
   return { label: 'Weak', color: '#6b7280' };
 }

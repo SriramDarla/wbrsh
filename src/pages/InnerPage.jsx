@@ -26,7 +26,7 @@ function SuspenseFallback({ accent = '#a78bfa' }) {
   );
 }
 
-export default function InnerPage({ brand = 'Studio', page, onReplay, onNav }) {
+export default function InnerPage({ brand = 'Your Life, In Receipts', page, onReplay, onNav }) {
   const rootRef = useRef(null);
 
   // Fade-in on scroll
@@ -86,7 +86,7 @@ export default function InnerPage({ brand = 'Studio', page, onReplay, onNav }) {
       {/* ── Footer ── */}
       <footer className="ip-info" id="info">
         <div className="ip-base">
-          <span>© {new Date().getFullYear()} {brand} · Your Life, In Receipts</span>
+          <span>© {new Date().getFullYear()} {brand} · An Empirical Data Experience</span>
           <span className="ip-base__actions">
             {onReplay && (
               <button type="button" className="ip-textbtn" onClick={onReplay}>

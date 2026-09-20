@@ -1,18 +1,16 @@
-import { cloneElement, isValidElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoaderMarquee from './LoaderMarquee.jsx';
-import StudioPage from './StudioPage.jsx';
+import HomePage from './HomePage.jsx';
 import InnerPage from './pages/InnerPage.jsx';
 import { PAGES } from './pages/pages.js';
 import { ToastProvider } from './components/index.js';
-import Showcase from './components/Showcase.jsx';
 
-const BRAND = 'Studio'; // ← your company name
+const BRAND = 'Your Life, In Receipts';
 
 /**
  * Minimal hash-based router.
- * /          → home  (StudioPage)
- * /#<id>     → InnerPage for that id
- * /#components → component showcase (dev only)
+ * /          → home  (HomePage)
+ * /#<id>     → InnerPage for that module (story, receipts, connections, patterns)
  */
 function useHashRoute() {
   const getRoute = () => {
@@ -34,19 +32,10 @@ function useHashRoute() {
 export default function App() {
   const route = useHashRoute();
 
-  // component showcase
-  if (route === 'components') {
-    return (
-      <ToastProvider>
-        <Showcase />
-      </ToastProvider>
-    );
-  }
-
-  // check if this is an inner page
+  // check if this is an experience page
   const activePage = PAGES.find((p) => p.id === route) ?? null;
 
-  // If landing directly on an inner page (deep link / refresh), skip the intro.
+  // If landing directly on an experience page (deep link / refresh), skip the intro.
   const skipIntro = activePage !== null;
 
   const navigate = (id) => {
@@ -57,7 +46,7 @@ export default function App() {
     }
   };
 
-  // Build the page element — either home or the matched inner page
+  // Build the page element — either home or the matched experience module
   const pageEl = activePage ? (
     <InnerPage
       brand={BRAND}
@@ -65,7 +54,7 @@ export default function App() {
       onNavigate={navigate}
     />
   ) : (
-    <StudioPage
+    <HomePage
       brand={BRAND}
       onNavigate={navigate}
     />

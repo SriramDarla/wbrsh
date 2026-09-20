@@ -1,4 +1,4 @@
-/* StudioPage.css — inherits --nav-h, --band-h, --ease from LoaderMarquee.css */
+/* HomePage.css — inherits --nav-h, --band-h, --ease from LoaderMarquee.css */
 
 .pg {
   --pg-bg: #191A1F;
@@ -60,7 +60,7 @@
 }
 .pg-cell--side {
   border-right: 1px solid var(--line);
-  padding: 0;        /* full-bleed: the cycler fills all edges */
+  padding: 0;
   overflow: hidden;
 }
 .pg-cell__foot {
@@ -81,32 +81,6 @@
 }
 .pg-intro .pg-cell { padding-top: calc(var(--nav-h) + var(--cell)); }
 
-.pg-dot {
-  position: absolute;
-  top: calc(var(--nav-h) + var(--cell));
-  right: var(--cell);
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pg-pulse 2.4s ease-in-out infinite;
-}
-@keyframes pg-pulse { 50% { opacity: 0.3; } }
-
-
-
-.pg-socials {
-  display: grid;
-  justify-items: end;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: right;
-}
-.pg-socials a { color: inherit; text-decoration: none; }
-.pg-socials a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-
-/* ── main cell needs relative positioning for the logo ── */
 .pg-cell--main { position: relative; }
 
 /* ── rotating circle logo ── */
@@ -115,13 +89,13 @@
 }
 .pg-logo {
   position: absolute;
-  top: calc(var(--nav-h) + 1rem); /* clears the fixed navbar + comfortable gap */
+  top: calc(var(--nav-h) + 1rem);
   right: var(--cell);
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: pg-spin 14s linear infinite;
+  animation: pg-spin 16s linear infinite;
   will-change: transform;
   border-radius: 50%;
   filter: drop-shadow(0 2px 8px rgba(234, 157, 255, 0.35));
@@ -133,7 +107,6 @@
 .pg-statement {
   position: relative;
   margin: 0;
-  /* push below the logo: nav bar + gap + logo height (~130px) + breathing room */
   margin-top: calc(var(--nav-h) + 1rem + 9rem);
   font-size: clamp(1.75rem, 3.6vw, 3.6rem);
   font-weight: 700;
@@ -150,9 +123,9 @@
 }
 .pg-scroll { color: var(--pg-dim); }
 
-/* ── cycling image gallery (top-left cell) ── */
+/* ── metric cycler card (top-left cell) ── */
 .pg-cycler-wrap {
-  flex: 1;          /* fill all remaining space in the side cell */
+  flex: 1;
   min-height: 0;
   display: flex;
   overflow: hidden;
@@ -160,7 +133,7 @@
 .pg-cycler {
   position: relative;
   width: 100%;
-  height: 100%;     /* fill the wrapper completely */
+  height: 100%;
   overflow: hidden;
   background: #0d0b11;
   flex: 1;
@@ -170,40 +143,55 @@
   inset: 0;
   opacity: 0;
   transition: opacity 0.7s ease;
+  display: flex;
+  align-items: stretch;
 }
 .pg-cycler__slide.is-active { opacity: 1; }
-.pg-cycler__slide img {
-  display: block;
+
+.pg-cycler__metric-card {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-/* Placeholder block shown when src is empty */
-.pg-cycler__ph {
-  width: 100%;
-  height: 100%;
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background: linear-gradient(135deg, #1a0d24 0%, #0d0b11 60%, #1e1240 100%);
-  border: 1px dashed rgba(234, 157, 255, 0.12);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(135deg, #180d24 0%, #0d0b11 50%, #15102a 100%);
+  border: 1px solid rgba(234, 157, 255, 0.12);
+  gap: 0.6rem;
 }
-.pg-cycler__ph-num {
-  font-size: clamp(3rem, 10vw, 7rem);
+.pg-cycler__metric-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  opacity: 0.85;
+}
+.pg-cycler__metric-val {
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
   font-weight: 800;
-  font-stretch: 78%;
+  font-stretch: 80%;
   letter-spacing: -0.04em;
-  color: rgba(234, 157, 255, 0.18);
   line-height: 1;
+  color: #ffffff;
+}
+.pg-cycler__metric-label {
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  font-weight: 600;
+  color: rgba(242, 242, 240, 0.9);
+}
+.pg-cycler__metric-detail {
+  font-size: 0.82rem;
+  color: var(--pg-dim);
+  line-height: 1.35;
 }
 
 /* ── Row 2: horizontal card strip ── */
 .pg-strip-row {
   min-height: max(22rem, 50svh);
-  overflow: hidden; /* clip so the strip doesn't push layout */
+  overflow: hidden;
 }
 
-/* side: counter + arrows */
 .pg-strip-side {
   justify-content: space-between;
   gap: 2rem;
@@ -256,14 +244,14 @@
   scroll-snap-type: x mandatory;
   display: flex;
   flex-direction: row;
-  gap: 1px; /* grid lines between cards */
+  gap: 1px;
   align-items: stretch;
   justify-content: flex-start;
   border: none;
 }
 .pg-strip-wrap::-webkit-scrollbar { display: none; }
 
-/* ── individual card ── */
+/* ── individual module card ── */
 .pg-card {
   flex: 0 0 clamp(14rem, 28vw, 22rem);
   display: flex;
@@ -278,7 +266,6 @@
   transition: background 0.25s;
   color: var(--pg-fg);
 }
-/* last card is deliberately cut off to signal scrollability */
 .pg-card:last-child { flex-basis: clamp(14rem, 28vw, 22rem); }
 .pg-card:hover { background: rgba(234, 157, 255, 0.06); }
 .pg-card:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -289,7 +276,7 @@
   flex-shrink: 0;
 }
 
-/* re-use the same tile art system as the original */
+/* art system */
 .pg-art { position: relative; overflow: hidden; background: var(--c1); }
 .pg-art--circle {
   background: radial-gradient(circle at 68% 46%, var(--c2) 0 24%, transparent 24.4%), var(--c1);
@@ -305,9 +292,6 @@
     radial-gradient(circle at 0% 100%, var(--c2) 0 55%, transparent 55.4%),
     radial-gradient(circle at 100% 0%, var(--c2) 0 30%, transparent 30.4%),
     var(--c1);
-}
-.pg-art--split {
-  background: linear-gradient(115deg, var(--c1) 0 50%, var(--c2) 50% 100%);
 }
 
 .pg-card__body {
@@ -355,7 +339,7 @@
   line-height: 1.3;
 }
 
-/* ── Info / contact footer ── */
+/* ── Info / dataset summary footer ── */
 .pg-info {
   position: relative;
   min-height: 100svh;
@@ -372,31 +356,26 @@
 }
 .pg-cta {
   margin: 0 0 1.5rem;
-  max-width: 11ch;
-  font-size: clamp(2.6rem, 9vw, 9rem);
+  max-width: 14ch;
+  font-size: clamp(2.4rem, 8vw, 7.5rem);
   font-weight: 700;
   font-stretch: 78%;
-  line-height: 0.9;
+  line-height: 0.95;
   letter-spacing: -0.045em;
-}
-.pg-mail {
-  color: inherit;
-  font-size: clamp(1.2rem, 2.6vw, 2rem);
-  font-weight: 500;
-  text-underline-offset: 0.2em;
 }
 .pg-cols {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 2rem;
 }
 .pg-cols h3 { margin: 0 0 0.6em; font-size: 0.85rem; font-weight: 500; opacity: 0.6; }
-.pg-cols ul { display: grid; gap: 0.25em; margin: 0; padding: 0; list-style: none; }
+.pg-cols ul { display: grid; gap: 0.35em; margin: 0; padding: 0; list-style: none; }
 .pg-cols a { color: inherit; text-underline-offset: 0.25em; }
 
 .pg-base {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 3rem;
@@ -415,15 +394,14 @@
   text-underline-offset: 0.25em;
 }
 
-/* ── narrow screens ── */
+/* ── narrow screens / responsiveness ── */
 @media (max-width: 819px) {
   .pg { --tile: min(70vw, 46svh); }
   .pg-row { grid-template-columns: 1fr; }
   .pg-cell--side { border-right: 0; border-bottom: 1px solid var(--line); }
   .pg-intro { min-height: 0; }
   .pg-intro .pg-cell--main { order: -1; }
-  /* cycler gets a fixed height on mobile since the grid stacks */
-  .pg-intro .pg-cell--side { min-height: 55vw; }
+  .pg-intro .pg-cell--side { min-height: 48vw; }
 
   .pg-strip-row { overflow: visible; }
   .pg-strip-wrap { padding-left: var(--cell); }
@@ -431,5 +409,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pg-dot { animation: none; }
+  .pg-logo { animation: none; }
 }

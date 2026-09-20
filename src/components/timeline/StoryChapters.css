@@ -355,3 +355,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-panel { animation: none; }
+  .sc-spinner { animation: none; }
+  .sc-root { transition: none; }
+}
